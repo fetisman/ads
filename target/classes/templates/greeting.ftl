@@ -6,5 +6,5 @@
     <br>
     <div>This is the application for advertisements</div>
     <br>
-    <@f.advsfilter /><#-- !!!!!!!!!!!!! -->
+    <@f.advsfilter />
 </@c.page>

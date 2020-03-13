@@ -2,7 +2,7 @@
 <#import "parts/advFilter.ftl" as f>
 
 <@c.page>
-    <@f.advsfilter false /><#-- !!!!!!!!!!!!! -->
+    <@f.advsfilter false />
     <#include "parts/advEdit.ftl"/>
     <#include "parts/advList.ftl"/>
 </@c.page>

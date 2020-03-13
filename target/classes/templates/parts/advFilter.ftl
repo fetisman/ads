@@ -8,7 +8,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ... </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <#if isGreetingForm> <#-- !!!!!!!!!!!!! -->
+                            <#if isGreetingForm>
                                 <#list catalogs! as catalog>
 
                                     <form method="get" action="/main/${catalog.id!}" class="form-inline mt-1">
@@ -17,26 +17,13 @@
                                     </form>
                                 </#list>
 
-
-<#--                                <table>-->
-<#--                                    <tbody>-->
-<#--                                    <#list catalogs! as catalog>-->
-<#--                                        <tr>-->
-<#--                                            <td>-->
-<#--                                                <a href="/main/${catalog.id!}">${catalog.title!}</a>-->
-<#--                                            </td>-->
-<#--                                        </tr>-->
-<#--                                    </#list>-->
-<#--                                    </tbody>-->
-<#--                                </table>-->
-
                             <#else >
                                 <#list advTypes! as advType>
                                     <form method="get" action="/main/${catalog.id}" class="form-inline mt-1">
                                     <input type="submit" name="filter" class="dropdown-item"
                                            value="${advType.advType!}" />
-                                </form>
-                            </#list>
+                                    </form>
+                                </#list>
                             </#if>
                         </div>
                     </li>
