@@ -24,7 +24,7 @@ hs_err_pid*
 
 *.iml
 .idea/*
-.uploads/*
+.src/main/resources/uploads/*
 *.properties
 
 ### Maven template
