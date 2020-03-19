@@ -1,1 +1,2 @@
-# This is the app for advertisements
+# Hi there !
+This is the app for advertisements
