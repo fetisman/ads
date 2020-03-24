@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.mail.AuthenticationFailedException;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
 import org.example.advs.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,7 +44,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) throws MailException {
         User userFromDB = userRepo.findByUsername(user.getUsername());
         if (userFromDB!= null){
             return false;
@@ -58,7 +60,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    private void sendMessage(User user) {
+    private void sendMessage(User user) throws MailException {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
@@ -103,7 +105,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String password, String email) throws AuthenticationFailedException {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||

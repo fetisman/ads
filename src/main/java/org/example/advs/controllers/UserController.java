@@ -1,5 +1,6 @@
 package org.example.advs.controllers;
 
+import javax.mail.AuthenticationFailedException;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
 import org.example.advs.service.UserService;
@@ -61,7 +62,11 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String email
     ){
-        userService.updateProfile(user,password,email);
+        try {
+            userService.updateProfile(user,password,email);
+        } catch (AuthenticationFailedException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/user/profile";
     }

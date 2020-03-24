@@ -1,10 +1,12 @@
 package org.example.advs.controllers;
 
+import javax.mail.AuthenticationFailedException;
 import org.example.advs.domain.CaptchaResponseDto;
 import org.example.advs.domain.User;
 import org.example.advs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -67,9 +69,16 @@ public class RegistrationController {
             return "registration";
         }
 
-        if(!userService.addUser(user)){
-            model.addAttribute("usernameError", "User exists");
-            return "registration";
+        try {
+            if (!userService.addUser(user)) {
+                model.addAttribute("usernameError", "User exists");
+                return "registration";
+            }
+        } catch (Exception e){
+            if (e instanceof MailException) {
+            model.addAttribute("mailsendError", "Server Error. AuthenticationFailedException. Please direct your problem to support by fetismanjava@gmail.com");
+                return "errorPage";
+            }
         }
 
         return "redirect:/login";
