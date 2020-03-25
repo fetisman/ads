@@ -1,10 +1,12 @@
 package org.example.advs.service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.mail.AuthenticationFailedException;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
 import org.example.advs.repos.UserRepo;
@@ -16,10 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.Collections;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -105,7 +103,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) throws AuthenticationFailedException {
+    public void updateProfile(User user, String password, String email) throws MailException {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
@@ -119,7 +117,6 @@ public class UserService implements UserDetailsService {
         }
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(password);
-
         }
 
         userRepo.save(user);
