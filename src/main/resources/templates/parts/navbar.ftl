@@ -15,7 +15,7 @@
 
             <#if user??>
             <li class="nav-item active">
-                <a class="nav-link" href="/main/${catalog}">Advs</a>
+                <a class="nav-link" href="/main/${catalog!0}">Advs</a>
             </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/user-advs/${currentUserId}">My advs</a>

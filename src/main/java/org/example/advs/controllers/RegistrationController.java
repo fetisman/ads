@@ -1,10 +1,18 @@
 package org.example.advs.controllers;
 
+import com.sun.mail.util.MailConnectException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.AuthenticationFailedException;
+import javax.validation.Valid;
 import org.example.advs.domain.CaptchaResponseDto;
 import org.example.advs.domain.User;
 import org.example.advs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -14,10 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-
-import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Map;
 
 @Controller
 public class RegistrationController {
@@ -33,6 +37,8 @@ public class RegistrationController {
 
     private final static String CAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s";
 
+    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class.getName());
+
     @GetMapping("/registration")
     public String registration(){
         return "registration";
@@ -40,10 +46,10 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(@RequestParam("password2")String passwordConfirm,
-                          @RequestParam("g-recaptcha-response") String captchaResponse,
-                          @Valid User user,
-                          BindingResult bindingResult,
-                          Model model){
+            @RequestParam("g-recaptcha-response") String captchaResponse,
+            @Valid User user,
+            BindingResult bindingResult,
+            Model model){
         String url = String.format(CAPTCHA_URL, secret, captchaResponse);
 
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
@@ -67,9 +73,25 @@ public class RegistrationController {
             return "registration";
         }
 
-        if(!userService.addUser(user)){
-            model.addAttribute("usernameError", "User exists");
-            return "registration";
+        try {
+            if (!userService.addUser(user)) {
+                model.addAttribute("usernameError", "User exists");
+                return "registration";
+            }
+        }
+        catch (MailException e){
+            model.addAttribute("mailsendError", "Server Error. We have some troubles with a registration email sending.");
+            if (e.getCause() instanceof MailConnectException) { // parent is MailSendException
+                LOGGER.log(Level.WARNING, "MailConnectException. Check out spring.mail.host data in .properties");
+            }
+            else if (e.getCause() instanceof AuthenticationFailedException){ // parent is MailAuthenticationException
+                LOGGER.log(Level.WARNING, "AuthenticationFailedException. Check out spring.mail.password / .username data in .properties");
+            }
+            else {// works with spring.mail.port wrong data as example
+                LOGGER.log(Level.WARNING, "MailException. We have some troubles with a mail sending in .properties");
+            }
+            return "errorPage";
+
         }
 
         return "redirect:/login";

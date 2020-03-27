@@ -1,18 +1,23 @@
 package org.example.advs.service;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
 import org.example.advs.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -37,7 +42,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) throws MailException {
         User userFromDB = userRepo.findByUsername(user.getUsername());
         if (userFromDB!= null){
             return false;
@@ -53,7 +58,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    private void sendMessage(User user) {
+    private void sendMessage(User user) throws MailException {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
@@ -98,7 +103,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String password, String email) throws MailException {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
@@ -112,7 +117,6 @@ public class UserService implements UserDetailsService {
         }
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(password);
-
         }
 
         userRepo.save(user);
