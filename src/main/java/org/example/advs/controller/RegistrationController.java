@@ -1,4 +1,4 @@
-package org.example.advs.controllers;
+package org.example.advs.controller;
 
 import java.util.Collections;
 import java.util.Map;

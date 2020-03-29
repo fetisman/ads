@@ -1,7 +1,7 @@
 package org.example.advs.service;
 
 import org.example.advs.domain.Catalog;
-import org.example.advs.repos.CatalogRepo;
+import org.example.advs.repo.CatalogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

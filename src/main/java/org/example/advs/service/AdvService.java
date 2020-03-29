@@ -3,7 +3,7 @@ package org.example.advs.service;
 import org.example.advs.domain.Adv;
 import org.example.advs.domain.AdvType;
 import org.example.advs.domain.User;
-import org.example.advs.repos.AdvRepo;
+import org.example.advs.repo.AdvRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

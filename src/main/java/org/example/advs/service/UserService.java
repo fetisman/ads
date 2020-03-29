@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
-import org.example.advs.repos.UserRepo;
+import org.example.advs.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

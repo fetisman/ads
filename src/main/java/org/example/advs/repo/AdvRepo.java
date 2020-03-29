@@ -1,4 +1,4 @@
-package org.example.advs.repos;
+package org.example.advs.repo;
 
 import org.example.advs.domain.Adv;
 import org.example.advs.domain.AdvType;

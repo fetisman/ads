@@ -1,4 +1,4 @@
-package org.example.advs.controllers;
+package org.example.advs.controller;
 
 import java.util.Map;
 import org.example.advs.domain.Role;
