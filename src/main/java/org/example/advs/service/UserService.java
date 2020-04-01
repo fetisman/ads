@@ -9,9 +9,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.example.advs.domain.Role;
 import org.example.advs.domain.User;
-import org.example.advs.repos.UserRepo;
+import org.example.advs.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,7 +41,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(User user) throws MailException {
+    public boolean addUser(User user) {
         User userFromDB = userRepo.findByUsername(user.getUsername());
         if (userFromDB!= null){
             return false;
@@ -58,7 +57,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    private void sendMessage(User user) throws MailException {
+    private void sendMessage(User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
@@ -103,7 +102,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) throws MailException {
+    public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||

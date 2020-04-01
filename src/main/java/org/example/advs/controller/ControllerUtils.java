@@ -1,4 +1,4 @@
-package org.example.advs.controllers;
+package org.example.advs.controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

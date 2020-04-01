@@ -1,10 +1,10 @@
-package org.example.advs.controllers;
+package org.example.advs.controller;
 
 import org.example.advs.domain.Adv;
 import org.example.advs.domain.AdvType;
 import org.example.advs.domain.Catalog;
 import org.example.advs.domain.User;
-import org.example.advs.repos.AdvRepo;
+import org.example.advs.repo.AdvRepo;
 import org.example.advs.service.AdvService;
 import org.example.advs.service.AdvTypeService;
 import org.example.advs.service.CatalogService;
