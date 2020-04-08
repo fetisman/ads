@@ -47,13 +47,14 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepo.save(user);
 
         sendMessage(user);
+
+        userRepo.save(user);
+
         return true;
     }
 
@@ -61,7 +62,7 @@ public class UserService implements UserDetailsService {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to Advs. Please, visit next link: http://localhost:8080/activate/%s",
+                            "Welcome to Ads. Please, visit next link: http://localhost:8080/activate/%s",
                     user.getUsername(),
                     user.getActivationCode()
             );
@@ -75,6 +76,7 @@ public class UserService implements UserDetailsService {
         if(user == null) {
             return false;
         }
+        user.setActive(true);
         user.setActivationCode(null);
         userRepo.save(user);
         return true;

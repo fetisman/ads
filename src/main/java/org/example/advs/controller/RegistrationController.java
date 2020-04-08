@@ -40,6 +40,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(@RequestParam("password2")String passwordConfirm,
             @RequestParam("g-recaptcha-response") String captchaResponse,
+            @RequestParam("email")String email,
             @Valid User user,
             BindingResult bindingResult,
             Model model){
@@ -71,7 +72,8 @@ public class RegistrationController {
             return "registration";
         }
 
-        return "redirect:/login";
+        model.addAttribute("mailsendWarning", "We just sent you e-letter on " + email + " address. Please , visit your mail-box and confirm your mail address");
+        return "mailWarnPage";
     }
 
     @GetMapping("/activate/{code}")
