@@ -30,7 +30,7 @@
         const pswd2 = $('#pswd2').val();
         const email = $('#email').val();
 
-        if(uname.length >=2 && pswd.length >=1 && pswd2.length >=1 && email.length >=5) {
+        if(uname.length >=5 && pswd.length >=8 && pswd2.length >=8 && email.length >=5) {
             $('#submit').removeAttr('disabled');
         } else {
             $('#submit').attr('disabled', 'disabled');

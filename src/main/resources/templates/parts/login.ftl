@@ -23,7 +23,7 @@
                 <input <#if isRegisterForm>id="pswd" onkeyup="checkParams()" autocomplete="off"</#if>
                        type="password" name="password"
                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       placeholder="Password" maxlength="10" autocomplete="off"/>
+                       placeholder="Password" maxlength="15" autocomplete="off"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
