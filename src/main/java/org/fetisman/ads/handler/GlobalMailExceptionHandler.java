@@ -17,7 +17,7 @@ public class GlobalMailExceptionHandler {
 
     @ExceptionHandler(MailException.class)
     public String handleMailException(MailException ex, Model model){
-        model.addAttribute("mailsendWarning", "Server Error related to  registration email sending.");
+        model.addAttribute("mailSendWarning", "Server Error related to  registration email sending.");
         if (ex.getCause() instanceof MailConnectException) {
                 LOGGER.log(Level.SEVERE, "MailConnectException. Check out spring.mail.host data in .properties", ex);
             }

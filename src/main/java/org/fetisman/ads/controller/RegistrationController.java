@@ -38,7 +38,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@RequestParam("password2")String passwordConfirm,
+    public String addUser(
+            @RequestParam("password2")String passwordConfirm,
             @RequestParam("g-recaptcha-response") String captchaResponse,
             @RequestParam("email")String email,
             @Valid User user,
@@ -55,15 +56,14 @@ public class RegistrationController {
         boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
         if (isConfirmEmpty){
             model.addAttribute("password2Error", "Password confirmation can not be empty");
-            return "registration";
         }
 
-        if (user.getPassword()!=null && !user.getPassword().equals(passwordConfirm)){
-            model.addAttribute("passwordError", "Passwords are different");
-            return "registration";
+        boolean isPswdEquals = (user.getPassword()!= null && !user.getPassword().equals(passwordConfirm));
+        if (isPswdEquals){
+            model.addAttribute("passwordError", "Passwords are different !");
         }
 
-        if (isConfirmEmpty || bindingResult.hasErrors() || !captchaResponseDto.isSuccess()){
+        if (isConfirmEmpty || isPswdEquals || bindingResult.hasErrors() || !captchaResponseDto.isSuccess()){
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
             return "registration";
@@ -74,7 +74,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        model.addAttribute("mailsendWarning", "We just sent you e-letter on " + email + " address. Please , visit your mail-box and confirm your mail address");
+        model.addAttribute("mailSendWarning", "We just sent you e-letter on " + email + " address. Please , visit your mail-box and confirm your mail address");
         return "mailWarnPage";
     }
 

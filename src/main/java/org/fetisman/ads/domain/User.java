@@ -1,14 +1,27 @@
 package org.fetisman.ads.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "usr")
@@ -17,10 +30,18 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Username can not be empty")
+    @Length(min = 4, max = 25, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
+//    @NotBlank(message = "Username can not be empty")
     private String username;
 
-    @NotBlank(message = "Password can not be empty")
+    @Length(min = 7, max = 20, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
+    /*ERROR 19692 --- [nio-8080-exec-9] o.h.i.ExceptionMapperStandardImpl        : HHH000346:
+    Error during managed flush [Validation failed for classes [org.fetisman.ads.domain.User] during persist time for groups [javax.validation.groups.Default, ]
+List of constraint violations:[
+	ConstraintViolationImpl{interpolatedMessage='Check your name data. Require min length - 5 chars & max length - 25 chars', propertyPath=password,
+	rootBeanClass=class org.fetisman.ads.domain.User, messageTemplate='Check your name data. Require min length - 5 chars & max length - 25 chars'}
+]]*/
+//    @NotBlank(message = "Password can not be empty")
     private String password;
 
     private boolean active;

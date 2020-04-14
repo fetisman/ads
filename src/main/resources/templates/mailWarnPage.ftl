@@ -1,9 +1,9 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <#if mailsendWarning??>
+    <#if mailSendWarning??>
         <div>
-            ${mailsendWarning}
+            ${mailSendWarning}
         </div>
     </#if>
 </@c.page>

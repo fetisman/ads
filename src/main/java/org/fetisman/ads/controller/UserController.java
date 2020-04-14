@@ -5,7 +5,6 @@ import org.fetisman.ads.domain.Role;
 import org.fetisman.ads.domain.User;
 import org.fetisman.ads.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -65,11 +64,7 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String email
     ){
-        try {
-            userService.updateProfile(user,password,email);
-        } catch (MailException e) {
-            e.printStackTrace();
-        }
+        userService.updateProfile(user,password,email);
 
         return "redirect:/user/profile";
     }

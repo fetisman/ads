@@ -36,7 +36,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"> Password : </label>
                 <div class="col-sm-10">
-                    <input id="pswd2" onkeyup="checkParams()" type="password" name="password2"
+                    <input id="pswd2" onkeyup="checkParams()"
+                           type="password" name="password2"
                            class="form-control ${(password2Error??)?string('is-invalid', '')}"
                            placeholder="Retype password" autocomplete="off"/>
                     <#if password2Error??>

@@ -30,7 +30,16 @@
         const pswd2 = $('#pswd2').val();
         const email = $('#email').val();
 
-        if(uname.length >=5 && pswd.length >=8 && pswd2.length >=8 && email.length >=5) {
+        /*I tried follow your advices but I could not implement*/
+       /* if (pswd2 != pswd){
+            const element = document.createElement('div');
+            element.setAttribute('class', 'invalid-feedback');
+            element.set('Password confirmation is misspelled');
+            $('#pswd').appendChild(element);
+            $('#submit').attr('disabled', 'disabled');
+        }*/
+
+        if(uname.length >=5 && email.length >=5) {
             $('#submit').removeAttr('disabled');
         } else {
             $('#submit').attr('disabled', 'disabled');
