@@ -53,17 +53,19 @@ public class RegistrationController {
             model.addAttribute("captchaError", "Fill captcha");
         }
 
-        boolean isConfirmEmpty = StringUtils.isEmpty(passwordConfirm);
-        if (isConfirmEmpty){
+        boolean hasPasswordErrors = false ;
+
+        if (StringUtils.isEmpty(passwordConfirm)){
             model.addAttribute("password2Error", "Password confirmation can not be empty");
+            hasPasswordErrors = true;
         }
 
-        boolean isPswdEquals = (user.getPassword()!= null && !user.getPassword().equals(passwordConfirm));
-        if (isPswdEquals){
+        if (user.getPassword()!= null && !user.getPassword().equals(passwordConfirm)){
             model.addAttribute("passwordError", "Passwords are different !");
+            hasPasswordErrors = true;
         }
 
-        if (isConfirmEmpty || isPswdEquals || bindingResult.hasErrors() || !captchaResponseDto.isSuccess()){
+        if (hasPasswordErrors || bindingResult.hasErrors() || !captchaResponseDto.isSuccess()){
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
             return "registration";

@@ -29,20 +29,42 @@
         const pswd = $('#pswd').val();
         const pswd2 = $('#pswd2').val();
         const email = $('#email').val();
+        var elemUNError = document.getElementById("isUsernameError");
+        var isUsernameValid = false;
+        var elemPswdError = document.getElementById("isPasswordError");
+        var isPswdValid = false;
 
-        /*I tried follow your advices but I could not implement*/
-       /* if (pswd2 != pswd){
-            const element = document.createElement('div');
-            element.setAttribute('class', 'invalid-feedback');
-            element.set('Password confirmation is misspelled');
-            $('#pswd').appendChild(element);
-            $('#submit').attr('disabled', 'disabled');
-        }*/
+        if (uname.length >=5 && uname.length <=20){
+            elemUNError.style.display = 'none';
+            isUsernameValid = true;
+        }else {
+            elemUNError.style.display = 'inline';
+        }
 
-        if(uname.length >=5 && email.length >=5) {
+        if (pswd.length >=8 && pswd.length <=15){
+            elemPswdError.style.display = 'none';
+            isPswdValid = true;
+        }else {
+            elemPswdError.style.display = 'inline';
+        }
+
+        if(isUsernameValid && isPswdValid && pswd2 == pswd && email.length >=5) {
             $('#submit').removeAttr('disabled');
         } else {
             $('#submit').attr('disabled', 'disabled');
+        }
+    }
+</script>
+<script>
+    function checkPswdsMatch() {
+        const pswd = $('#pswd').val();
+        const pswd2 = $('#pswd2').val();
+        var elemPswdEquals = document.getElementById("isPswdEquals");
+
+        if (pswd2 != pswd){
+            elemPswdEquals.style.display = 'inline';
+        }else {
+            elemPswdEquals.style.display = 'none';
         }
     }
 </script>

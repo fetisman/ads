@@ -8,12 +8,17 @@
                        type="text" name="username"
                        value="<#if user??>${user.username}</#if>"
                        class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       placeholder="User name" maxlength="15" autocomplete="off"/>
+                       placeholder="User name should be min - 5 & max - 20 chars"
+                       minlength="5" maxlength="20" autocomplete="off"/>
                 <#if usernameError??>
                     <div class="invalid-feedback">
                         ${usernameError}
                     </div>
                 </#if>
+
+                <div id="isUsernameError" class="invalid-feedback">
+                    User name should be min - 5 & max - 20 chars
+                </div>
             </div>
         </div>
 
@@ -23,12 +28,17 @@
                 <input <#if isRegisterForm>id="pswd" onkeyup="checkParams()" autocomplete="off"</#if>
                        type="password" name="password"
                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       placeholder="Password" maxlength="15" autocomplete="off"/>
+                       placeholder="Password should be min - 8 & max - 15 chars"
+                       minlength="8" maxlength="15" autocomplete="off"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
                     </div>
                 </#if>
+
+                <div id="isPasswordError" class="invalid-feedback">
+                    Password should be min - 8 & max - 15 chars
+                </div>
             </div>
         </div>
 
@@ -36,7 +46,9 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"> Password : </label>
                 <div class="col-sm-10">
-                    <input id="pswd2" onkeyup="checkParams()"
+                    <input id="pswd2"
+                           <#--onkeyup="checkParams()"-->
+                           onkeyup="checkPswdsMatch()"
                            type="password" name="password2"
                            class="form-control ${(password2Error??)?string('is-invalid', '')}"
                            placeholder="Retype password" autocomplete="off"/>
@@ -45,6 +57,10 @@
                             ${password2Error}
                         </div>
                     </#if>
+
+                    <div id="isPswdEquals" class="invalid-feedback">
+                        Passwords are different
+                    </div>
                 </div>
             </div>
 

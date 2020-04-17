@@ -30,11 +30,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Length(min = 4, max = 25, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
+//    @Size(min = 4, max = 25, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
 //    @NotBlank(message = "Username can not be empty")
     private String username;
 
-    @Length(min = 7, max = 20, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
+//    @Length(min = 7, max = 20, message = "Check your password data. Require min length - 5 chars & max length - 25 chars")
     /*ERROR 19692 --- [nio-8080-exec-9] o.h.i.ExceptionMapperStandardImpl        : HHH000346:
     Error during managed flush [Validation failed for classes [org.fetisman.ads.domain.User] during persist time for groups [javax.validation.groups.Default, ]
 List of constraint violations:[
