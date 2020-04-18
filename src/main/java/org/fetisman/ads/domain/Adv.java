@@ -57,17 +57,11 @@ public class Adv {
     }
 
     public boolean isLongDescTooLong(){
-        if(longDesc.length()>10){
-            return true;
-        }
-        return false;
+        return longDesc.length() > 10;
     }
 
     public boolean isPhoneTooLong(){
-        if (phone.length()>10){
-            return true;
-        }
-        return false;
+        return phone.length() > 10;
     }
 
     public User getAuthor() {

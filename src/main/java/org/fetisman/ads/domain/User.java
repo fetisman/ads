@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import org.fetisman.ads.domain.dto.UserRegistrationDto;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,25 +31,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @Size(min = 4, max = 25, message = "Check your name data. Require min length - 5 chars & max length - 25 chars")
-//    @NotBlank(message = "Username can not be empty")
     private String username;
 
-//    @Length(min = 7, max = 20, message = "Check your password data. Require min length - 5 chars & max length - 25 chars")
-    /*ERROR 19692 --- [nio-8080-exec-9] o.h.i.ExceptionMapperStandardImpl        : HHH000346:
-    Error during managed flush [Validation failed for classes [org.fetisman.ads.domain.User] during persist time for groups [javax.validation.groups.Default, ]
-List of constraint violations:[
-	ConstraintViolationImpl{interpolatedMessage='Check your name data. Require min length - 5 chars & max length - 25 chars', propertyPath=password,
-	rootBeanClass=class org.fetisman.ads.domain.User, messageTemplate='Check your name data. Require min length - 5 chars & max length - 25 chars'}
-]]*/
-//    @NotBlank(message = "Password can not be empty")
     private String password;
 
-    private boolean active;
-
-    @Email(message = "Email is not correct")
-    @NotBlank(message = "Email can not be empty")
     private String email;
+
+    private boolean active;
 
     private String activationCode;
 
@@ -59,6 +48,15 @@ List of constraint violations:[
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Adv> advs;
+
+    public User() {
+    }
+
+    public User(UserRegistrationDto userRegistrationDto) {
+        this.username = userRegistrationDto.getUsername();
+        this.password = userRegistrationDto.getPassword();
+        this.email = userRegistrationDto.getEmail();
+    }
 
     @Override
     public boolean equals(Object o) {

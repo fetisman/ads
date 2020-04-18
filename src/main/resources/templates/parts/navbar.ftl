@@ -15,10 +15,10 @@
 
             <#if user??>
             <li class="nav-item active">
-                <a class="nav-link" href="/main/${catalog!0}">Advs</a>
+                <a class="nav-link" href="/main/${catalog!0}">Ads</a>
             </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/user-advs/${currentUserId}">My advs</a>
+                    <a class="nav-link" href="/user-advs/${currentUserId}">My ads</a>
                 </li>
             </#if>
 

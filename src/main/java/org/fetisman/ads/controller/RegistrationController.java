@@ -3,8 +3,9 @@ package org.fetisman.ads.controller;
 import java.util.Collections;
 import java.util.Map;
 import javax.validation.Valid;
-import org.fetisman.ads.domain.CaptchaResponseDto;
+import org.fetisman.ads.domain.dto.CaptchaResponseDto;
 import org.fetisman.ads.domain.User;
+import org.fetisman.ads.domain.dto.UserRegistrationDto;
 import org.fetisman.ads.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +43,7 @@ public class RegistrationController {
             @RequestParam("password2")String passwordConfirm,
             @RequestParam("g-recaptcha-response") String captchaResponse,
             @RequestParam("email")String email,
-            @Valid User user,
+            @Valid UserRegistrationDto userRegistrationDto,
             BindingResult bindingResult,
             Model model){
         String url = String.format(CAPTCHA_URL, secret, captchaResponse);
@@ -60,7 +61,7 @@ public class RegistrationController {
             hasPasswordErrors = true;
         }
 
-        if (user.getPassword()!= null && !user.getPassword().equals(passwordConfirm)){
+        if (userRegistrationDto.getPassword()!= null && !userRegistrationDto.getPassword().equals(passwordConfirm)){
             model.addAttribute("passwordError", "Passwords are different !");
             hasPasswordErrors = true;
         }
@@ -71,7 +72,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (!userService.addUser(user)) {
+        if (!userService.addUser(new User(userRegistrationDto))) {
             model.addAttribute("usernameError", "User exists");
             return "registration";
         }

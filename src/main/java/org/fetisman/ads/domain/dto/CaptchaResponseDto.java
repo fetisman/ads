@@ -1,4 +1,4 @@
-package org.fetisman.ads.domain;
+package org.fetisman.ads.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
