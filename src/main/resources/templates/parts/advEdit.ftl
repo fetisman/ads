@@ -1,7 +1,7 @@
 <#if !isCurrentUser??>
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
        aria-controls="collapseExample">
-        Adv editor
+        Ad editor
     </a>
 </#if>
 <div class="collapse <#if adv??>show</#if>" id="collapseExample">
@@ -77,7 +77,7 @@
             <input type="hidden" name="id" value="<#if adv??>${adv.id!-1}</#if>"/>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary mt-3">Save adv</button>
+                <button type="submit" class="btn btn-primary mt-3">Save ad</button>
             </div>
         </form>
     </div>

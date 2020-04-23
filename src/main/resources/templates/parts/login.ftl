@@ -4,29 +4,41 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> User Name : </label>
             <div class="col-sm-10">
-                <input type="text" name="username"
+                <input <#if isRegisterForm>id="uname" onkeyup="checkParams()" autocomplete="off"</#if>
+                       type="text" name="username"
                        value="<#if user??>${user.username}</#if>"
                        class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       placeholder="User name"/>
+                       placeholder="User name should be min - 5 & max - 20 chars"
+                       minlength="5" maxlength="20" autocomplete="off"/>
                 <#if usernameError??>
                     <div class="invalid-feedback">
                         ${usernameError}
                     </div>
                 </#if>
+
+                <div id="isUsernameError" class="invalid-feedback">
+                    User name should be min - 5 & max - 20 chars
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password : </label>
             <div class="col-sm-10">
-                <input type="password" name="password"
+                <input <#if isRegisterForm>id="pswd" onkeyup="checkParams()" autocomplete="off"</#if>
+                       type="password" name="password"
                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       placeholder="Password"/>
+                       placeholder="Password should be min - 8 & max - 15 chars"
+                       minlength="8" maxlength="15" autocomplete="off"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
                     </div>
                 </#if>
+
+                <div id="isPasswordError" class="invalid-feedback">
+                    Password should be min - 8 & max - 15 chars
+                </div>
             </div>
         </div>
 
@@ -34,24 +46,31 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"> Password : </label>
                 <div class="col-sm-10">
-                    <input type="password" name="password2"
+                    <input id="pswd2"
+                           <#--onkeyup="checkParams()"-->
+                           onkeyup="checkPswdsMatch()"
+                           type="password" name="password2"
                            class="form-control ${(password2Error??)?string('is-invalid', '')}"
-                           placeholder="Retype password"/>
+                           placeholder="Retype password" autocomplete="off"/>
                     <#if password2Error??>
                         <div class="invalid-feedback">
                             ${password2Error}
                         </div>
                     </#if>
+
+                    <div id="isPswdEquals" class="invalid-feedback">
+                        Passwords are different
+                    </div>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"> Email : </label>
                 <div class="col-sm-10">
-                    <input type="email" name="email"
+                    <input id="email" onkeyup="checkParams()" type="email" name="email"
                            value="<#if user??>${user.email}</#if>"
                            class="form-control ${(emailError??)?string('is-invalid', '')}"
-                           placeholder="Email"/>
+                           placeholder="Email" maxlength="40" autocomplete="on"/>
                     <#if emailError??>
                         <div class="invalid-feedback">
                             ${emailError}
@@ -59,7 +78,8 @@
                     </#if>
                 </div>
             </div>
-            <div class="col-sm-6">
+
+            <div class="col-sm-2">
                 <div class="g-recaptcha" data-sitekey="6LfHNc0UAAAAAGdBujWpjSvB-qRpUJQkc_PudR2L"></div>
                 <#if captchaError??>
                     <div class="alert alert-danger" role="alert">
@@ -67,20 +87,38 @@
                     </div>
                 </#if>
             </div>
+
+            <div class="col-sm-2 mt-3">
+                <button id="submit" class="btn btn-primary" type="submit" disabled>
+                    Create
+                </button>
+            </div>
+
+        <#else>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <a href="/registration">Add new user</a>
+                </div>
+
+                <div class="col-sm-10">
+                    <button class="btn btn-primary " type="submit">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+
         </#if>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
 
-        <#if !isRegisterForm><a href="/registration">Add new user</a></#if>
-        <button class="btn btn-primary" type="submit"><#if isRegisterForm>Create<#else>Sign In</#if></button>
     </form>
 </#macro>
 
 <#macro logout>
-    <!--кнопка для разлогинивания :-->
+    <!--Logout button :-->
     <form action="/logout" method="post">
         <#include "security.ftl" />
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button class="btn btn-primary" type="submit"><#if user??>Sign Out<#else>Log in</#if></button>
     </form>
 </#macro>

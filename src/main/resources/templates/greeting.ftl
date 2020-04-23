@@ -6,5 +6,9 @@
     <br>
     <div>This is the application for advertisements</div>
     <br>
+    <#if user??>
     <@f.advsfilter />
+        <#else>
+        Please, login using the navigation bar
+    </#if>
 </@c.page>

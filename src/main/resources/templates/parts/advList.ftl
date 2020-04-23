@@ -6,14 +6,14 @@
 <table class="table table-striped table-bordered mt-3">
     <thead>
     <tr>
-        <th scope="col">Adv Num</th>
-        <th scope="col">Adv Type</th>
+        <th scope="col">Ad Num</th>
+        <th scope="col">Ad Type</th>
         <th scope="col">Short Desc</th>
         <th scope="col">Long Desc</th>
         <th scope="col">Phone</th>
         <th scope="col">Price</th>
         <th scope="col">Photo</th>
-        <th scope="col">Adv Author</th>
+        <th scope="col">Ad Author</th>
     </tr>
     </thead>
 
