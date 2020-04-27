@@ -4,11 +4,13 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> User Name : </label>
             <div class="col-sm-10">
-                <input <#if isRegisterForm>id="uname" onkeyup="checkParams()" autocomplete="off"</#if>
+                <input <#if isRegisterForm>
+                    id="uname" onkeyup="checkParams()"
+                    placeholder="User name should be min - 5 & max - 20 chars"
+                    <#else>placeholder="Input user name"</#if>
                        type="text" name="username"
                        value="<#if user??>${user.username}</#if>"
                        class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       placeholder="User name should be min - 5 & max - 20 chars"
                        minlength="5" maxlength="20" autocomplete="off"/>
                 <#if usernameError??>
                     <div class="invalid-feedback">
@@ -25,10 +27,12 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password : </label>
             <div class="col-sm-10">
-                <input <#if isRegisterForm>id="pswd" onkeyup="checkParams()" autocomplete="off"</#if>
+                <input <#if isRegisterForm>
+                    id="pswd" onkeyup="checkParams()"
+                    placeholder="Password should be min - 8 & max - 15 chars"
+                <#else> placeholder="Input password"</#if>
                        type="password" name="password"
                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       placeholder="Password should be min - 8 & max - 15 chars"
                        minlength="8" maxlength="15" autocomplete="off"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
@@ -47,8 +51,7 @@
                 <label class="col-sm-2 col-form-label"> Password : </label>
                 <div class="col-sm-10">
                     <input id="pswd2"
-                           <#--onkeyup="checkParams()"-->
-                           onkeyup="checkPswdsMatch()"
+                           onkeyup="checkParams()"
                            type="password" name="password2"
                            class="form-control ${(password2Error??)?string('is-invalid', '')}"
                            placeholder="Retype password" autocomplete="off"/>

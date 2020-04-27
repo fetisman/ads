@@ -31,7 +31,7 @@
                     <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1">...</a>
                     </li>
-                <#else>
+                <#elseif p gt 1>
                     <li class="page-item">
                         <a class="page-link" href="${url}?page=${p-1}&size=${page.getSize()}"
                            tabindex="-1">${p}</a>
