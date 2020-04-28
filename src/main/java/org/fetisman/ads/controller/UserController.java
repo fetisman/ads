@@ -117,6 +117,15 @@ public class UserController {
         model.addAttribute(errorName, errorDescr);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("delete/{user}")
+    public String deleteUser(@PathVariable User user, Model model){
+        userService.deleteUser(user);
+
+        model.addAttribute("users", userService.findAll());
+        return "userList";
+    }
+
     //-------------User-------------
     @GetMapping("user-profile")
     public String getUserProfile(Model model, @AuthenticationPrincipal User user){

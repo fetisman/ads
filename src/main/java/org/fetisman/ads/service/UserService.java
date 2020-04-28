@@ -118,4 +118,8 @@ public class UserService implements UserDetailsService {
         user.setUserLastName(newLastName);
         userRepo.save(user);
     }
+
+    public void deleteUser(User user) {
+        userRepo.delete(user);
+    }
 }
