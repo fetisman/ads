@@ -126,4 +126,8 @@ public class UserService implements UserDetailsService {
             sendMessage(user);
         }
     }
+
+    public void deleteUser(User user) {
+        userRepo.delete(user);
+    }
 }

@@ -50,6 +50,15 @@ public class UserController {
         return "redirect:/user";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("delete/{user}")
+    public String deleteUser(@PathVariable User user, Model model){
+        userService.deleteUser(user);
+
+        model.addAttribute("users", userService.findAll());
+        return "userList";
+    }
+
     @GetMapping("profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user){
         model.addAttribute("username", user.getUsername());
