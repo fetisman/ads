@@ -1,5 +1,6 @@
 <#include "security.ftl">
 <#import "pager.ftl" as p>
+<#import "dropdownAdText.ftl" as d>
 
 <#if page.getTotalPages() gt 0>
     <@p.pager url'/main/0' page/>
@@ -15,7 +16,7 @@
             <th scope="col">Phone</th>
             <th scope="col">Price</th>
             <th scope="col">Photo</th>
-            <th scope="col">Ad Author</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
 
@@ -23,58 +24,35 @@
         <#list page.content as adv>
             <tr>
                 <th>
-                    <div class="col align-self-center">
-                        ${adv.id}
-                    </div>
+                    <i class="col align-self-center">
+                        <div class="row justify-content-center">
+                            ${adv.id}
+                        </div>
+                    </i>
                 </th>
 
-                <td><i class="col align-self-center">${(adv.advType.advType)!''}</i></td>
-
-                <td><span class="col align-self-center">${adv.shortDesc}</span></td>
-
                 <td>
-                    <#--<a class="row justify-content-center">-->
-                    <a class="col align-self-center">
-                        <#if adv.isLongDescTooLong()>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle"
-                                    type="button" id="dropdownMenu1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Desc
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <span class="dropdown-item-text">${adv.longDesc}</span>
-                            </div>
-                            <#else>
-                                ${adv.longDesc}
-                            </#if>
+                    <i class="col align-self-center">
+                        <div class="row justify-content-center">
+                            ${(adv.advType.advType)!''}
                         </div>
-                    </a>
+                    </i>
                 </td>
 
                 <td>
-                    <a class="col align-self-center">
-                        <#if adv.isPhoneTooLong()>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle"
-                                    type="button" id="dropdownMenu2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Phone
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <span class="dropdown-item-text">${adv.phone}</span>
-                            </div>
-                            <#else>
-                                ${adv.phone}
-                            </#if>
-                        </div>
-                    </a>
+                    <@d.dropdown adv adv.shortDesc 'Short desc'/>
                 </td>
 
                 <td>
-                    <a class="col align-self-center">
-                        ${adv.price}
-                    </a>
+                    <@d.dropdown adv adv.longDesc 'Long desc'/>
+                </td>
+
+                <td>
+                    <@d.dropdown adv adv.phone 'Phone'/>
+                </td>
+
+                <td>
+                    <@d.dropdown adv adv.price 'Price'/>
                 </td>
 
                 <td>
@@ -84,7 +62,6 @@
                         </a>
                     </#if>
                 </td>
-
                 <td>
                     <a class="col align-self-center">
                         <#if adv.author.id == currentUserId || isAdmin>
@@ -92,24 +69,30 @@
                             <div class="dropdown">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
+                                    ${adv.authorName}
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="/user-advs/${adv.author.id}?adv=${adv.id}">Edit</a>
+                                    <#if !isAdmin>
+                                        <a class="dropdown-item" href="/user-advs/${adv.author.id}?adv=${adv.id}">Edit</a>
+                                    </#if>
                                     <a class="dropdown-item" href="/delete/${adv.id}">Delete</a>
+                                    <#if isAdmin>
+                                        <a class="dropdown-item" href="/user-advs/${adv.author.id}">User page</a>
+                                    </#if>
                                 </div>
                             </div>
 
                         <#else>
-                            <a class="col align-self-center"
-                               href="/user-advs/${adv.author.id}">
-                                ${adv.authorName}
-                            </a>
+                            <div class="col align-self-center">
+                                <a class="btn btn-secondary"
+                                   href="/user-advs/${adv.author.id}">
+                                    ${adv.authorName}
+                                </a>
+                            </div>
                         </#if>
                     </a>
                 </td>
-
             </tr>
         </#list>
         </tbody>

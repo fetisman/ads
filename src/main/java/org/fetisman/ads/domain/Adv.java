@@ -56,12 +56,8 @@ public class Adv {
         this.author = user;
     }
 
-    public boolean isLongDescTooLong(){
-        return longDesc.length() > 10;
-    }
-
-    public boolean isPhoneTooLong(){
-        return phone.length() > 10;
+    public boolean isStringTooLong(String s){
+        return s.length() > 10;
     }
 
     public User getAuthor() {
