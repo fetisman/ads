@@ -38,7 +38,7 @@
             <label class="col-sm-2 col-form-label"> Email : </label>
             <div class="col-sm-10">
                 <input id="email" onkeyup="checkParams()" type="email" name="email"
-                class="form-control" placeholder="Email" />
+                class="form-control" placeholder="Email" value="${email!''}" />
             </div>
         </div>
 
