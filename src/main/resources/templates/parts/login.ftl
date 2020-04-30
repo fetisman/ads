@@ -92,8 +92,8 @@
             </div>
 
             <div class="col-sm-2 mt-3">
-                <button id="submit" class="btn btn-primary" type="submit" disabled>
-                    Create
+                <button id="submit" onclick="this.hidden=true" class="btn btn-primary" type="submit" disabled>
+                    Register
                 </button>
             </div>
 
