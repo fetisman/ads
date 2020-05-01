@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name = "usr")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -60,8 +61,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return Objects.equals(id, user.id);
     }
@@ -71,7 +76,7 @@ public class User implements UserDetails {
         return Objects.hash(id);
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
 
@@ -108,6 +113,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
+    }
+
+    public Long getAdminId() {
+        if (this.isAdmin()) {
+            return this.getId();
+        }
+        return -1L;
     }
 
     public Long getId() {

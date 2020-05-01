@@ -72,7 +72,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <#if !isAdmin>
+                                    <#if adminId == adv.author.id || !isAdmin>
                                         <a class="dropdown-item" href="/user-advs/${adv.author.id}?adv=${adv.id}">Edit</a>
                                     </#if>
                                     <a class="dropdown-item" href="/delete/${adv.id}">Delete</a>
