@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <div>User editor</div>
+    <h5>User editor</h5>
 
     <form action="/user" method="post">
         <input type="text" name="username" value="${user.username}" />
