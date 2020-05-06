@@ -2,6 +2,7 @@ package org.fetisman.ads.domain;
 
 import javax.persistence.*;
 import java.util.Set;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Catalog {
@@ -13,6 +14,7 @@ public class Catalog {
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AdvType> advTypes;
 
+    @Size(min = 2, max = 20, message = "Check your catalog data. Require min length - 2 chars & max length - 20 chars")
     private String title;
 
     public long getId() {

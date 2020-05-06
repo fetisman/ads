@@ -2,8 +2,8 @@
 <#include "parts/security.ftl">
 
 <@c.page>
-    <div>List of users</div>
-    <table>
+    <h5>List of users</h5>
+    <table class="table table-striped table-bordered mt-3">
         <thead>
         <tr>
             <th>Name</th>

@@ -26,6 +26,10 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/user">User List</a>
                 </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/catalog">Catalogs</a>
+                </li>
             </#if>
 
             <#if user??>
