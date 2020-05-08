@@ -39,6 +39,7 @@ public class CatalogService {
     }
 
     public void deleteCatalog(Catalog catalog) {
+        catalogRepo.delete(catalog);
     }
 
     public boolean addCatalog(Catalog catalog) {

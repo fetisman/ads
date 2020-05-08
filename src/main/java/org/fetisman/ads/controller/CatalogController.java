@@ -30,14 +30,14 @@ public class CatalogController {
 
     @GetMapping
     public String catalogList(Model model) {
-        model.addAttribute("catalogs", catalogRepo.findAll());
-        return "catalogList";
+        modelAddAttribute(model, null, catalogRepo.findById(0L).get());
+        return "catalogs";
     }
 
     @GetMapping("{catalog}")
     public String catalogEditForm(@PathVariable Catalog catalog, Model model){
-        model.addAttribute("catalog", catalog);
-        return "catalogEdit";
+        modelAddAttribute(model, null, catalog);
+        return "catalogEditor";
     }
 
     @PostMapping("/edit")
@@ -47,37 +47,36 @@ public class CatalogController {
             Model model
     ){
         if (StringUtils.isEmpty(title)){
-            model.addAttribute("titleError", "Catalog title can not be empty");
-            model.addAttribute("catalog", catalog);
-            return "catalogEdit";
+            modelAddAttribute(model, "Catalog title can not be empty", catalog);
+            return "catalogEditor";
         }
-
         if (!catalogService.saveUpdatedCatalog(catalog, title)){
-            model.addAttribute("titleError", "Catalog exists");
-            model.addAttribute("catalog", catalog);
-            return "catalogEdit";
+            modelAddAttribute(model, "Catalog exists", catalog);
+            return "catalogEditor";
         }
-
         return "redirect:/catalog";
     }
 
     @PostMapping
     public String addCatalog(
+            @RequestParam String title,
             @Valid Catalog catalog,
             BindingResult bindingResult,
-            Model model){
-
+            Model model
+    ){
+        if (StringUtils.isEmpty(title)){
+            modelAddAttribute(model, "Catalog title can not be empty", catalog);
+            return "catalogs";
+        }
         if (bindingResult.hasErrors()){
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errors);
-            model.addAttribute("catalogs", catalogRepo.findAll());
-            return "catalogList";
+            modelAddAttribute(model, null, catalog);
+            return "catalogs";
         }
-
         if (!catalogService.addCatalog(catalog)) {
-            model.addAttribute("titleError", "Catalog exists");
-            model.addAttribute("catalogs", catalogRepo.findAll());
-            return "catalogList";
+            modelAddAttribute(model, "Catalog exists", catalog);
+            return "catalogs";
         }
 
         return "redirect:/catalog";
@@ -88,7 +87,14 @@ public class CatalogController {
     public String deleteCatalog(@PathVariable Catalog catalog, Model model){
         catalogService.deleteCatalog(catalog);
 
-        model.addAttribute("catalogs", catalogService.catalogList());
-        return "catalogList";
+        return "redirect:/catalog";
+    }
+
+    private void modelAddAttribute(Model model, String titleError, Catalog catalog){
+        if (!StringUtils.isEmpty(titleError)) {
+            model.addAttribute("titleError", titleError);
+        }
+        model.addAttribute("catalog", catalog);
+        model.addAttribute("catalogs", catalogRepo.findAll());
     }
 }

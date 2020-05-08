@@ -46,14 +46,15 @@ public class AdvController {
     @Autowired
     private AdvService advService;
 
-    private List<Catalog> catalogList;
+    @Autowired
+    private CatalogService catalogService;
 
     private AdvTypeService advTypeService;
 
     private List<AdvType> advTypeList;
 
     public AdvController(CatalogService catalogService, AdvTypeService advTypeService) {
-        this.catalogList = catalogService.catalogList();
+        this.catalogService = catalogService;
         this.advTypeService = advTypeService;
     }
 
@@ -61,7 +62,7 @@ public class AdvController {
     public String greeting(
             Model model
     ) {
-        model.addAttribute("catalogs", catalogList);
+        model.addAttribute("catalogs", catalogService.catalogList());
 
         return "greeting";
     }
