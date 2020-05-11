@@ -89,6 +89,9 @@ public class AdvController {
             model.addAttribute("url", "/main/" + catalog.getId());
             model.addAttribute("filter", filter);
             model.addAttribute("catalog", catalog);
+        }else{
+            model.addAttribute("mailSendWarning", "We just sent you e-letter on your new mail address. Please , visit your mail-box and confirm your mail address");
+            return "mailWarnPage";
         }
 
         return "main";

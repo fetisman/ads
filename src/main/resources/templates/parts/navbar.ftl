@@ -29,8 +29,17 @@
             </#if>
 
             <#if user??>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/user/profile">Profile</a>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="collapseProfile" role="button"
+                       data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                        Profile
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="collapseProfile">
+                    <a class="dropdown-item" href="/user/user-profile">User profile</a>
+                    <a class="dropdown-item" href="/user/email-profile">Email profile</a>
+                    <a class="dropdown-item" href="/user/pswd-profile">Password profile</a>
+                    </div>
                 </li>
             </#if>
 
