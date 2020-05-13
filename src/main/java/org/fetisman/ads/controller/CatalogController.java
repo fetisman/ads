@@ -84,9 +84,8 @@ public class CatalogController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("delete/{catalog}")
-    public String deleteCatalog(@PathVariable Catalog catalog, Model model){
+    public String deleteCatalog(@PathVariable Catalog catalog){
         catalogService.deleteCatalog(catalog);
-
         return "redirect:/catalog";
     }
 

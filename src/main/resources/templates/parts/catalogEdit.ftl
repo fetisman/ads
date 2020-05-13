@@ -1,4 +1,4 @@
-<#macro catalogEdit isCatalogs titleError catalog path>
+<#macro catalogEdit isCatalogs catalog path>
     <#assign
     isCatalogChosen = false
     catalogId = (catalog.id)!-1>
@@ -9,16 +9,17 @@
         </#if>
 
 <#if isCatalogs>
-    <a class="btn btn-primary mt-4 mb-4" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-       aria-controls="collapseExample">
+    <a class="btn btn-primary mt-4 mb-4" data-toggle="collapse"
+       href="#collapseCatalogs" role="button" aria-expanded="false"
+       aria-controls="collapseCatalogs">
         Add catalog
     </a>
 </#if>
 
-    <div class="collapse <#if (catalog?? && isCatalogChosen) || titleError!=''>show</#if>"
+    <div class="collapse <#if (catalog?? && isCatalogChosen) || titleError??>show</#if>"
 <#--    <div class="collapse <#if catalog??>show</#if>"-->
 <#--    <div class="collapse <#if !isEditForm>show</#if>"-->
-         id="collapseExample">
+         id="collapseCatalogs">
         <div class="form-group mt-3">
             <form action="${path}" method="post">
                 <div class="form-group">

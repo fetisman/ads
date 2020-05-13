@@ -2,6 +2,7 @@ package org.fetisman.ads.domain;
 
 import javax.persistence.*;
 import java.util.Set;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "adv_type")
@@ -14,7 +15,8 @@ public class AdvType {
     @OneToMany(mappedBy="advType", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     private Set<Adv> advs;
 
-    @Column(nullable = false)
+    @Size(min = 2, max = 20, message = "Check your ad type data. Require min length - 2 chars & max length - 20 chars")
+//    @Column(nullable = false)
     private String advType;
 
     @ManyToOne(fetch = FetchType.EAGER)

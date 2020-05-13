@@ -50,7 +50,7 @@
             <div class="form-group">
                 <select class="custom-select col" name="type">
                     <#list advTypes! as advType>
-                        <option value="${advType.advType!}">${advType.advType}</option>
+                        <option value="${advType.advType!}">${(advType.advType)!''}</option>
                     </#list>
                 </select>
             </div>

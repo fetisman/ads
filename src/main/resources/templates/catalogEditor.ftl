@@ -3,6 +3,6 @@
 <#import "parts/catalogList.ftl" as cl>
 
 <@c.page>
-    <@ce.catalogEdit false titleError!'' catalog "/catalog/edit"/>
+    <@ce.catalogEdit false catalog "/catalog/edit"/>
     <@cl.catalogList catalogs/>
 </@c.page>
