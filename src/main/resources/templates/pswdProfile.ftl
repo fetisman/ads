@@ -2,12 +2,26 @@
 
 <@c.page>
     <h5>${username!} password profile</h5>
-<#--    ${message!}-->
 
     <form method="post">
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label"> Password : </label>
+            <label class="col-sm-2 col-form-label"> Old password : </label>
+            <div class="col-sm-10">
+                <input type="password" name="password0"
+                        class="form-control ${(password0Error??)?string('is-invalid', '')}"
+                        placeholder="Input your old password"
+                        value="<#if password0??>${password0}</#if>"/>
+                <#if password0Error??>
+                    <div class="invalid-feedback">
+                        ${password0Error}
+                    </div>
+                </#if>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"> New password : </label>
             <div class="col-sm-10">
                 <input id="pswd" onkeyup="checkParams()"
                         type="password" name="password"
@@ -26,12 +40,12 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label"> Password : </label>
+            <label class="col-sm-2 col-form-label"> Password confirm : </label>
             <div class="col-sm-10">
                 <input id="pswd2" onkeyup="checkParams()"
                         type="password" name="password2"
                         class="form-control ${(password2Error??)?string('is-invalid', '')}"
-                        placeholder="Retype password" autocomplete="off"
+                        placeholder="Retype new password" autocomplete="off"
                         value="<#if password2??>${password2}</#if>"/>
                 <#if password2Error??>
                     <div class="invalid-feedback">
@@ -58,6 +72,13 @@
                    onkeyup="checkParams()"
                    type="hidden" value="${username!}"/>
             <div id="isUsernameError"></div>
+        </div>
+
+        <div>
+            <input id="lastname"
+                   onkeyup="checkParams()"
+                   type="hidden" value="${lastname!}"/>
+            <div id="isUserLastNameError"></div>
         </div>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>

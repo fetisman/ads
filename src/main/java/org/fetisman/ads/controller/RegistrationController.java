@@ -62,7 +62,7 @@ public class RegistrationController {
         }
 
         if (userRegistrationDto.getPassword()!= null && !userRegistrationDto.getPassword().equals(passwordConfirm)){
-            model.addAttribute("passwordError", "Passwords are different !");
+            model.addAttribute("passwordError", "Passwords are different");
             hasPasswordErrors = true;
         }
 
@@ -74,6 +74,7 @@ public class RegistrationController {
 
         if (!userService.addUser(new User(userRegistrationDto))) {
             model.addAttribute("usernameError", "User exists");
+            model.addAttribute("lastNameError", "User exists");
             return "registration";
         }
 

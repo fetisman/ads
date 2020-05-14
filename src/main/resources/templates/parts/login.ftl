@@ -8,10 +8,10 @@
                     id="uname" onkeyup="checkParams()"
                     placeholder="User name should be min - 5 & max - 20 chars"
                     <#else>placeholder="Input user name"</#if>
-                       type="text" name="username"
-                       value="<#if user??>${user.username}</#if>"
-                       class="form-control ${(usernameError??)?string('is-invalid', '')}"
-                       minlength="5" maxlength="20" autocomplete="off"/>
+                        type="text" name="username"
+                        value="<#if user??>${user.username}</#if>"
+                        class="form-control ${(usernameError??)?string('is-invalid', '')}"
+                        minlength="5" maxlength="20" autocomplete="off"/>
                 <#if usernameError??>
                     <div class="invalid-feedback">
                         ${usernameError}
@@ -24,6 +24,30 @@
             </div>
         </div>
 
+        <#if isRegisterForm>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"> User Last Name : </label>
+                <div class="col-sm-10">
+                    <input id="lastname"
+                           onkeyup="checkParams()"
+                           type="text" name="userLastName"
+                           class="form-control ${(lastNameError??)?string('is-invalid', '')}"
+                           placeholder="User last name should be min - 2 & max - 15 chars"
+                            <#--                            value="<#if user??>${user.userLastName}</#if>"-->
+                           minlength="2" maxlength="15" autocomplete="off"/>
+                    <#if lastNameError??>
+                        <div class="invalid-feedback">
+                            ${lastNameError}
+                        </div>
+                    </#if>
+
+                    <div id="isUserLastNameError" class="invalid-feedback">
+                        User last name should be min - 2 & max - 15 chars
+                    </div>
+                </div>
+            </div>
+        </#if>
+
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password : </label>
             <div class="col-sm-10">
@@ -31,9 +55,9 @@
                     id="pswd" onkeyup="checkParams()"
                     placeholder="Password should be min - 8 & max - 15 chars"
                 <#else> placeholder="Input password"</#if>
-                       type="password" name="password"
-                       class="form-control ${(passwordError??)?string('is-invalid', '')}"
-                       minlength="8" maxlength="15" autocomplete="off"/>
+                        type="password" name="password"
+                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
+                        minlength="8" maxlength="15" autocomplete="off"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
@@ -71,7 +95,7 @@
                 <label class="col-sm-2 col-form-label"> Email : </label>
                 <div class="col-sm-10">
                     <input id="email" onkeyup="checkParams()" type="email" name="email"
-                           value="<#if user??>${user.email}</#if>"
+<#--                           value="<#if user??>${user.email}</#if>"-->
                            class="form-control ${(emailError??)?string('is-invalid', '')}"
                            placeholder="Email" maxlength="40" autocomplete="on"/>
                     <#if emailError??>

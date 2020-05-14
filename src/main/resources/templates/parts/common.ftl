@@ -26,11 +26,14 @@
     <script>
         function checkParams() {
             const uname = $('#uname').val();
+            const lastname = $('#lastname').val();
             const pswd = $('#pswd').val();
             const pswd2 = $('#pswd2').val();
             const email = $('#email').val();
             var elemUNError = document.getElementById("isUsernameError");
             var isUsernameValid = false;
+            var elemLastNameError = document.getElementById("isUserLastNameError");
+            var isLastnameValid = false;
             var elemPswdError = document.getElementById("isPasswordError");
             var isPswdValid = false;
             var elemPswdEquals = document.getElementById("isPswdEquals");
@@ -42,6 +45,13 @@
                 isUsernameValid = true;
             }else {
                 elemUNError.style.display = 'inline';
+            }
+
+            if (lastname.length >1 && lastname.length <16){
+                elemLastNameError.style.display = 'none';
+                isLastnameValid = true;
+            }else {
+                elemLastNameError.style.display = 'inline';
             }
 
             if (pswd.length >=8 && pswd.length <=15){
@@ -62,46 +72,7 @@
                 isEmailValid = true;
             }
 
-            if(isUsernameValid && isPswdValid && isPswdsEquals && isEmailValid) {
-                $('#submit').removeAttr('disabled');
-            } else {
-                $('#submit').attr('disabled', 'disabled');
-            }
-        }
-    </script>
-    <script>
-        function checkNewEmail() {
-            const email = $('#email').val();
-            const newEmail = $('#newEmail').val();
-            var elemEmailError = document.getElementById("isEmailError");
-            var isEmailValid = false;
-            var elemNewEmailError1 = document.getElementById("isNewEmailError1");
-            var elemNewEmailError2 = document.getElementById("isNewEmailError2");
-            var isNewEmailValid = false;
-            var areEmailsEqual = false;
-
-            if (email.length >= 5){
-                elemEmailError.style.display = "none";
-                isEmailValid = true;
-            }else {
-                elemEmailError.style.display = "inline";
-            }
-
-            if (newEmail.length >= 5){
-                elemNewEmailError1.style.display = "none";
-                isNewEmailValid = true;
-            }else {
-                elemNewEmailError1.style.display = "inline";
-            }
-
-            if (email === newEmail){
-                elemNewEmailError2.style.display = 'inline';
-            }else {
-                elemNewEmailError2.style.display = 'none';
-                areEmailsEqual = true;
-            }
-
-            if(isNewEmailValid && isEmailValid && areEmailsEqual) {
+            if(isUsernameValid && isLastnameValid && isPswdValid && isPswdsEquals && isEmailValid) {
                 $('#submit').removeAttr('disabled');
             } else {
                 $('#submit').attr('disabled', 'disabled');

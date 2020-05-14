@@ -42,8 +42,8 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean addUser(User user) {
-        User userFromDB = userRepo.findByUsername(user.getUsername());
-        if (userFromDB!= null){
+        User userFromDB = userRepo.findByUsernameAndUserLastName(user.getUsername(), user.getUserLastName());
+        if (userFromDB != null){
             return false;
         }
 
@@ -104,26 +104,26 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updatePswd(User user, String password) {
-        user.setPassword(passwordEncoder.encode(password));
-
-        userRepo.save(user);
-    }
-
-    public boolean updateEmail(User user, String email, String newemail) {
-        if (newemail.equals(email)){
+    public boolean updatePswd(User user, String password, String password0) {
+        if (!passwordEncoder.matches(password0, user.getPassword())){
             return false;
         }
-        user.setActive(false);
-        user.setEmail(newemail);
-        user.setActivationCode(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(password));
         userRepo.save(user);
-        sendMessage(user);
         return true;
     }
 
-    public void updateUser(User user, String name) {
-        user.setUsername(name);
+    public boolean updateUserProfile(User user, String lastName) {
+        if (user.getUserLastName() == null){
+            user.setUserLastName(lastName);
+            userRepo.save(user);
+            return true;
+        }
+        if (user.getUserLastName().equals(lastName)){
+            return false;
+        }
+        user.setUserLastName(lastName);
         userRepo.save(user);
+        return true;
     }
 }

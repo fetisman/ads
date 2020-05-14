@@ -57,10 +57,11 @@ public class UserController {
         return "redirect:/user";
     }
 
-//---------------Pswd-----------
+    //---------------Pswd-----------
     @GetMapping("pswd-profile")
     public String getPswdProfile(Model model, @AuthenticationPrincipal User user){
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("lastname", user.getUserLastName());
         model.addAttribute("email", user.getEmail());
 
         return "pswdProfile";
@@ -69,105 +70,91 @@ public class UserController {
     @PostMapping("pswd-profile")
     public String updatePswdProfile(
             @AuthenticationPrincipal User user,
+            @RequestParam String password0,
             @RequestParam String password,
             @RequestParam String password2,
             Model model
     ){
+        if (StringUtils.isEmpty(password0)){
+            pswdProfileAddAttribute(model, null, password, password2,
+                    "password0Error", "Old password can not be empty");
+            return "pswdProfile";
+        }
         if (StringUtils.isEmpty(password)){
-            model.addAttribute("passwordError", "Password can not be empty");
+            pswdProfileAddAttribute(model, password0, null, password2,
+                    "passwordError", "Password can not be empty");
             return "pswdProfile";
         }
         if (StringUtils.isEmpty(password2)){
-            model.addAttribute("password", password);
-            model.addAttribute("password2Error", "Password confirm can not be empty");
-            return "pswdProfile";
-        }
-        if (!password.equals(password2)){
-            model.addAttribute("password", password);
-            model.addAttribute("password2", password2);
-            model.addAttribute("passwordError", "Passwords are different");
-            model.addAttribute("password2Error", "Passwords are different");
+            pswdProfileAddAttribute(model, password0, password, null,
+                    "password2Error", "Password confirmation can not be empty");
             return "pswdProfile";
         }
 
-        userService.updatePswd(user,password);
+        if (!password.equals(password2)){
+            pswdProfileAddAttribute(model, password0, password, password2,
+                    "password2Error", "Passwords are different");
+            return "pswdProfile";
+        }
+
+        if (password.equals(password0)){
+            pswdProfileAddAttribute(model, password0, password, password2,
+                    "passwordError", "New password already exists");
+            return "pswdProfile";
+        }
+
+        if (!userService.updatePswd(user,password, password0)){
+            pswdProfileAddAttribute(model, password0, password, password2,
+                    "password0Error", "Invalid old password");
+            return "pswdProfile";
+        }
 
         return "redirect:/user/pswd-profile";
     }
 
-//------------------Email--------------
-    @GetMapping("email-profile")
-    public String getEmailProfile(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("user", user);
-
-        return "emailProfile";
+    private void pswdProfileAddAttribute(Model model, String password0,
+            String password, String password2,  String errorName,  String errorDescr){
+        model.addAttribute("password0", password0);
+        model.addAttribute("password", password);
+        model.addAttribute("password2", password2);
+        model.addAttribute(errorName, errorDescr);
     }
 
-    @PostMapping("email-profile")
-    public String updateEmailProfile(
-            @AuthenticationPrincipal User user,
-            @RequestParam String email,
-            @RequestParam String newEmail,
-            Model model
-    ){
-
-        if (StringUtils.isEmpty(email)){
-            model.addAttribute("emailError", "Email can not be empty");
-            return "emailProfile";
-        }
-        if (!user.getEmail().equals(email)){
-            model.addAttribute("email", email);
-            model.addAttribute("emailError", "Current email is wrong");
-            return "emailProfile";
-        }
-
-        if (StringUtils.isEmpty(newEmail)){
-            model.addAttribute("email", email);
-            model.addAttribute("newEmailError", "New email can not be empty");
-            return "emailProfile";
-        }
-
-        if (!userService.updateEmail(user,email, newEmail)){
-            model.addAttribute("email", email);
-            model.addAttribute("newEmailError", "New email already exists");
-            return "emailProfile";
-//            return "redirect:/user/email-profile";
-        }
-
-        model.addAttribute("mailSendWarning", "We just sent you e-letter on " + newEmail + " address."
-                + "Please , visit your mail-box and confirm your mail address");
-        return "mailWarnPage";
-    }
     //-------------User-------------
     @GetMapping("user-profile")
     public String getUserProfile(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("username", user.getUsername());
-
+        userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
+                user.getUserLastName(), null);
         return "userProfile";
     }
 
     @PostMapping("user-profile")
     public String updateUserProfile(
             @AuthenticationPrincipal User user,
-            @RequestParam String username,
+            @RequestParam String userLastName,
             Model model
     ){
-        if (StringUtils.isEmpty(username)){
-            model.addAttribute("username", username);
-            model.addAttribute("nameError", "Name can not be empty");
+        if (StringUtils.isEmpty(userLastName)){
+            userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
+                    user.getUserLastName(), "Last name can not be empty");
             return "userProfile";
         }
 
-        if (userRepo.findByUsername(username) != null){
-            model.addAttribute("username", username);
-            model.addAttribute("nameError", "New name already exists");
+        if (!userService.updateUserProfile(user,userLastName)){
+            userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
+                    user.getUserLastName(), "New last name already exists");
             return "userProfile";
         }
-
-        userService.updateUser(user,username);
 
         return "redirect:/user/user-profile";
+    }
+
+    private void userProfileAddAttribute(Model model, String userName,
+            String userEmail, String userLastName,  String lastNameError){
+        model.addAttribute("userName", userName);
+        model.addAttribute("userEmail", userEmail);
+        model.addAttribute("userLastName", userLastName);
+        model.addAttribute("lastNameError", lastNameError);
     }
 
 }
