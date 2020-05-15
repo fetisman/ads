@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <h5>${username!} password profile</h5>
+    <h5>${(user.username)!''} password profile</h5>
 
     <form method="post">
 
@@ -64,20 +64,20 @@
             <input id="email"
                    onkeyup="checkParams()"
                    class="form-control"
-                   type="hidden" name="email" value="${email!''}"/>
+                   type="hidden" name="email" value="${(user.email)!''}"/>
         </div>
 
         <div>
             <input id="uname"
                    onkeyup="checkParams()"
-                   type="hidden" value="${username!}"/>
+                   type="hidden" value="${(user.username)!''}"/>
             <div id="isUsernameError"></div>
         </div>
 
         <div>
             <input id="lastname"
                    onkeyup="checkParams()"
-                   type="hidden" value="${lastname!}"/>
+                   type="hidden" value="${(user.userLastName)!''}"/>
             <div id="isUserLastNameError"></div>
         </div>
 

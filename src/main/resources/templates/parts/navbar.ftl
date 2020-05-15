@@ -37,7 +37,6 @@
 
                     <div class="dropdown-menu" aria-labelledby="collapseProfile">
                     <a class="dropdown-item" href="/user/user-profile">User profile</a>
-<#--                    <a class="dropdown-item" href="/user/email-profile">Email profile</a>-->
                     <a class="dropdown-item" href="/user/pswd-profile">Password profile</a>
                     </div>
                 </li>

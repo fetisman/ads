@@ -60,9 +60,7 @@ public class UserController {
     //---------------Pswd-----------
     @GetMapping("pswd-profile")
     public String getPswdProfile(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("lastname", user.getUserLastName());
-        model.addAttribute("email", user.getEmail());
+        model.addAttribute("user", user);
 
         return "pswdProfile";
     }
@@ -123,8 +121,7 @@ public class UserController {
     //-------------User-------------
     @GetMapping("user-profile")
     public String getUserProfile(Model model, @AuthenticationPrincipal User user){
-        userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
-                user.getUserLastName(), null);
+        userProfileAddAttribute(model, user, null);
         return "userProfile";
     }
 
@@ -135,25 +132,20 @@ public class UserController {
             Model model
     ){
         if (StringUtils.isEmpty(userLastName)){
-            userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
-                    user.getUserLastName(), "Last name can not be empty");
+            userProfileAddAttribute(model, user, "Last name can not be empty");
             return "userProfile";
         }
 
         if (!userService.updateUserProfile(user,userLastName)){
-            userProfileAddAttribute(model, user.getUsername(), user.getEmail(),
-                    user.getUserLastName(), "New last name already exists");
+            userProfileAddAttribute(model, user, "New last name already exists");
             return "userProfile";
         }
 
         return "redirect:/user/user-profile";
     }
 
-    private void userProfileAddAttribute(Model model, String userName,
-            String userEmail, String userLastName,  String lastNameError){
-        model.addAttribute("userName", userName);
-        model.addAttribute("userEmail", userEmail);
-        model.addAttribute("userLastName", userLastName);
+    private void userProfileAddAttribute(Model model, User user, String lastNameError){
+        model.addAttribute("user", user);
         model.addAttribute("lastNameError", lastNameError);
     }
 

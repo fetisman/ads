@@ -18,15 +18,25 @@
 
     <div class="container mt-3">
         <div class="row">
-        <ul class="pagination col justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Pages</a>
-            </li>
-            <#list body as p>
-                <#if (p-1)==page.getNumber()>
-                    <li class="page-item active">
-                        <a class="page-link" href="#" tabindex="-1">${p}</a>
-                    </li>
+
+            <ul class="pagination col justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Found</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#" tabindex="-1">${page.getTotalElements()}</a>
+                </li>
+            </ul>
+
+            <ul class="pagination col justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Pages</a>
+                </li>
+                <#list body as p>
+                    <#if (p-1)==page.getNumber()>
+                        <li class="page-item active">
+                            <a class="page-link" href="#" tabindex="-1">${p}</a>
+                        </li>
                 <#elseif p==-1>
                     <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1">...</a>

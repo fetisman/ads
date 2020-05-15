@@ -1,14 +1,14 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <h5>Name : ${userName!}</h5>
-    <h5>Email : ${userEmail!}</h5>
+    <h5>Name : ${(user.username)!''}</h5>
+    <h5>Email : ${(user.email)!''}</h5>
 
     <form method="post" action="/user/user-profile">
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">
-                <h5>Last name : <#if userLastName??>${userLastName}<#else>none</#if></h5>
+                <h5>Last name : ${(user.userLastName)!'none'}</h5>
             </label>
             <div class="col-sm-10">
                 <input type="text" name="userLastName"

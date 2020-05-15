@@ -1,7 +1,7 @@
 <#include "security.ftl">
 <#import "pager.ftl" as p>
 
-<@p.pager url page/>
+<@p.pager url!'/main/0' page/>
 <#--    <div class="table-responsive">-->
 <table class="table table-striped table-bordered mt-3">
     <thead>
@@ -105,4 +105,4 @@
     </tbody>
 </table>
 <#--    </div>-->
-<@p.pager url page/>
+<@p.pager url!'/main/0' page/>

@@ -1,8 +1,9 @@
+<#--
 <#import "parts/common.ftl" as c>
 
 <@c.page>
     <h5>${username!} email profile</h5>
-<#--    ${message!}-->
+&lt;#&ndash;    ${message!}&ndash;&gt;
 
     <form method="post" action="/user/email-profile">
 
@@ -51,4 +52,4 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
 
     </form>
-</@c.page>
+</@c.page>-->
