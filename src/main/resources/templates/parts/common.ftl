@@ -13,7 +13,7 @@
 </head>
 <body>
 <#include "navbar.ftl">
-<div class="container mt-5">
+<div class="container" style="margin-top:80px">
 <#nested>
 </div>
 <!-- Optional JavaScript -->

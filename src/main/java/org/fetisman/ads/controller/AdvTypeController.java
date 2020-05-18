@@ -116,6 +116,7 @@ public class AdvTypeController {
             model.addAttribute("isCatalogEmpty", catalog.getAdvTypes().size() > 0);
             model.addAttribute("advTypes", catalog.getAdvTypes());
             model.addAttribute("catalogId", catalog.getId());
+            model.addAttribute("catalogTitle", catalog.getTitle());
         }
     }
 
