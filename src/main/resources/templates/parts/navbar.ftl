@@ -1,6 +1,6 @@
 <#import "login.ftl" as l>
 <#include "security.ftl">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <a class="navbar-brand" href="/">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -9,14 +9,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" type="button" href="/">Home</a>
             </li>
 
             <#if user??>
-            <li class="nav-item active">
-                <a class="nav-link" href="/main/${catalog!0}">Ads</a>
-            </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/main/${catalog!0}">Ads</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/user-advs/${currentUserId}">My ads</a>
                 </li>

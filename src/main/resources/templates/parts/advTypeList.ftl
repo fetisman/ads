@@ -1,6 +1,6 @@
 <#macro advTypeList>
     <#if isCatalogEmpty??>
-        <h5>List of ad types</h5>
+        <h5>'${catalogTitle}' catalog. List of ad types :</h5>
         <table class="table table-striped table-bordered mt-3">
             <thead>
             <tr>

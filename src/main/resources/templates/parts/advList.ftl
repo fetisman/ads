@@ -67,7 +67,7 @@
                         <#if adv.author.id == currentUserId || isAdmin>
 
                             <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     ${adv.authorName}
                                 </a>
