@@ -1,20 +1,20 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <h5>${(user.username)!''} password profile</h5>
+    <h5>Change password for ${(user.username)!''}</h5>
 
     <form method="post">
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Old password : </label>
             <div class="col-sm-10">
-                <input type="password" name="password0"
-                        class="form-control ${(password0Error??)?string('is-invalid', '')}"
+                <input type="password" name="oldPassword"
+                        class="form-control ${(oldPasswordError??)?string('is-invalid', '')}"
                         placeholder="Input your old password"
-                        value="<#if password0??>${password0}</#if>"/>
-                <#if password0Error??>
+                        value="<#if oldPassword??>${oldPassword}</#if>"/>
+                <#if oldPasswordError??>
                     <div class="invalid-feedback">
-                        ${password0Error}
+                        ${oldPasswordError}
                     </div>
                 </#if>
             </div>
@@ -24,13 +24,13 @@
             <label class="col-sm-2 col-form-label"> New password : </label>
             <div class="col-sm-10">
                 <input id="pswd" onkeyup="checkParams()"
-                        type="password" name="password"
-                        class="form-control ${(passwordError??)?string('is-invalid', '')}"
+                        type="password" name="newPassword"
+                        class="form-control ${(newPasswordError??)?string('is-invalid', '')}"
                         placeholder="The new password should be min - 8 & max - 15 chars"
-                        value="<#if password??>${password}</#if>"/>
-                <#if passwordError??>
+                        value="<#if newPassword??>${newPassword}</#if>"/>
+                <#if newPasswordError??>
                     <div class="invalid-feedback">
-                        ${passwordError}
+                        ${newPasswordError}
                     </div>
                 </#if>
                 <div id="isPasswordError" class="invalid-feedback">
@@ -43,13 +43,13 @@
             <label class="col-sm-2 col-form-label"> Password confirm : </label>
             <div class="col-sm-10">
                 <input id="pswd2" onkeyup="checkParams()"
-                        type="password" name="password2"
-                        class="form-control ${(password2Error??)?string('is-invalid', '')}"
+                        type="password" name="confirmedPassword"
+                        class="form-control ${(confirmedPasswordError??)?string('is-invalid', '')}"
                         placeholder="Retype new password" autocomplete="off"
-                        value="<#if password2??>${password2}</#if>"/>
-                <#if password2Error??>
+                        value="<#if confirmedPassword??>${confirmedPassword}</#if>"/>
+                <#if confirmedPasswordError??>
                     <div class="invalid-feedback">
-                        ${password2Error}
+                        ${confirmedPasswordError}
                     </div>
                 </#if>
                 <div id="isPswdEquals" class="invalid-feedback">

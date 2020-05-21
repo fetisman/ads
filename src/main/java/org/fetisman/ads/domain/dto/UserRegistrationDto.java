@@ -9,9 +9,6 @@ public class UserRegistrationDto {
     @Size(min = 5, max = 20, message = "Check your name data. Require min length - 5 chars & max length - 20 chars")
     private String username;
 
-    @Size(min = 2, max = 15, message = "Check your last name data. Require min length - 2 chars & max length - 15 chars")
-    private String userLastName;
-
     @Size(min = 8, max = 15, message = "Check your password data. Require min length - 8 chars & max length - 15 chars")
     private String password;
 
@@ -25,14 +22,6 @@ public class UserRegistrationDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getUserLastName() {
-        return userLastName;
-    }
-
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
     }
 
     public String getPassword() {

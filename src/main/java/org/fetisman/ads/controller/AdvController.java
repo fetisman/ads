@@ -74,25 +74,21 @@ public class AdvController {
             @AuthenticationPrincipal User user) {
         if (user.isActive()) {
 
-                this.advTypeList = advTypeService.advTypeList(catalog);
+            this.advTypeList = advTypeService.advTypeList(catalog);
 
-                Page<Adv> page;
-                if (!StringUtils.isEmpty(filter)) {
-                    AdvType advType = advTypeService.loadAdvTypeByType(filter);
-                    page = advService.advList(pageable, advType);
-                } else {
-                    page = advService.advList(pageable, advTypeList);
-                }
+            Page<Adv> page;
+            if (!StringUtils.isEmpty(filter)) {
+                AdvType advType = advTypeService.loadAdvTypeByType(filter);
+                page = advService.advList(pageable, advType);
+            } else {
+                page = advService.advList(pageable, advTypeList);
+            }
 
-                model.addAttribute("advTypes", advTypeList);
-                model.addAttribute("page", page);
-                try {
-                    model.addAttribute("url", "/main/" + catalog.getId());
-                }catch (NullPointerException n){
-                    n.getMessage();
-                }
-                model.addAttribute("filter", filter);
-                model.addAttribute("catalog", catalog);
+            model.addAttribute("advTypes", advTypeList);
+            model.addAttribute("page", page);
+            model.addAttribute("url", "/main/" + catalog.getId());
+            model.addAttribute("filter", filter);
+            model.addAttribute("catalog", catalog);
         }else{
             model.addAttribute("mailSendWarning", "We just sent you e-letter on your new mail address. Please , visit your mail-box and confirm your mail address");
             return "mailWarnPage";
@@ -103,12 +99,12 @@ public class AdvController {
 
     @PostMapping("/main/{catalog}")
     public String add(@PathVariable Catalog catalog,
-                      @Valid Adv adv,
-                      BindingResult bindingResult,
-                      Model model,
-                      @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
-                      @RequestParam("file") MultipartFile file,
-                      @AuthenticationPrincipal User user) throws IOException {
+            @Valid Adv adv,
+            BindingResult bindingResult,
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal User user) throws IOException {
 
         AdvType advType = advTypeService.loadAdvTypeByType(adv.getType());
 

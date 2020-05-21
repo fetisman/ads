@@ -26,14 +26,14 @@
     <script>
         function checkParams() {
             const uname = $('#uname').val();
-            const lastname = $('#lastname').val();
+            // const lastname = $('#lastname').val();
             const pswd = $('#pswd').val();
             const pswd2 = $('#pswd2').val();
             const email = $('#email').val();
             var elemUNError = document.getElementById("isUsernameError");
             var isUsernameValid = false;
             var elemLastNameError = document.getElementById("isUserLastNameError");
-            var isLastnameValid = false;
+            // var isLastnameValid = false;
             var elemPswdError = document.getElementById("isPasswordError");
             var isPswdValid = false;
             var elemPswdEquals = document.getElementById("isPswdEquals");
@@ -47,12 +47,12 @@
                 elemUNError.style.display = 'inline';
             }
 
-            if (lastname.length >1 && lastname.length <16){
-                elemLastNameError.style.display = 'none';
-                isLastnameValid = true;
-            }else {
-                elemLastNameError.style.display = 'inline';
-            }
+            // if (lastname.length >1 && lastname.length <16){
+            //     elemLastNameError.style.display = 'none';
+            //     isLastnameValid = true;
+            // }else {
+            //     elemLastNameError.style.display = 'inline';
+            // }
 
             if (pswd.length >=8 && pswd.length <=15){
                 elemPswdError.style.display = 'none';
@@ -72,7 +72,7 @@
                 isEmailValid = true;
             }
 
-            if(isUsernameValid && isLastnameValid && isPswdValid && isPswdsEquals && isEmailValid) {
+            if(isUsernameValid && isPswdValid && isPswdsEquals && isEmailValid) {
                 $('#submit').removeAttr('disabled');
             } else {
                 $('#submit').attr('disabled', 'disabled');

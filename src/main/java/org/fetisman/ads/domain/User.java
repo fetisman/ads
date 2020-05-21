@@ -33,6 +33,8 @@ public class User implements UserDetails {
 
     private String username;
 
+    private String userFirstName;
+
     private String userLastName;
 
     private String password;
@@ -56,7 +58,6 @@ public class User implements UserDetails {
 
     public User(UserRegistrationDto userRegistrationDto) {
         this.username = userRegistrationDto.getUsername();
-        this.userLastName = userRegistrationDto.getUserLastName();
         this.password = userRegistrationDto.getPassword();
         this.email = userRegistrationDto.getEmail();
     }
@@ -119,6 +120,14 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
     }
 
     public String getUserLastName() {

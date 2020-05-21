@@ -42,8 +42,8 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean addUser(User user) {
-        User userFromDB = userRepo.findByUsernameAndUserLastName(user.getUsername(), user.getUserLastName());
-        if (userFromDB != null){
+        User userFromDB = userRepo.findByUsername(user.getUsername());
+        if (userFromDB!= null){
             return false;
         }
 
@@ -56,6 +56,23 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
 
         return true;
+    }
+
+    public void saveUser(User user, Map<String, String> form) {
+
+        Set<String> roles = Arrays.stream(Role.values())
+                .map(Role::name)
+                .collect(Collectors.toSet());
+
+        user.getRoles().clear();
+
+        for (String key : form.keySet()) {
+            if (roles.contains(key)) {
+                user.getRoles().add(Role.valueOf(key));
+            }
+        }
+
+        userRepo.save(user);
     }
 
     private void sendMessage(User user) {
@@ -86,24 +103,6 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(User user, String username, Map<String, String> form) {
-        user.setUsername(username);
-
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-
-        user.getRoles().clear();
-
-        for (String key : form.keySet()) {
-            if (roles.contains(key)) {
-                user.getRoles().add(Role.valueOf(key));
-            }
-        }
-
-        userRepo.save(user);
-    }
-
     public boolean updatePswd(User user, String password, String password0) {
         if (!passwordEncoder.matches(password0, user.getPassword())){
             return false;
@@ -113,17 +112,10 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public boolean updateUserProfile(User user, String lastName) {
-        if (user.getUserLastName() == null){
-            user.setUserLastName(lastName);
-            userRepo.save(user);
-            return true;
-        }
-        if (user.getUserLastName().equals(lastName)){
-            return false;
-        }
-        user.setUserLastName(lastName);
+    public void updateUserProfile(User user, String newFirstName, String newLastName) {
+
+        user.setUserFirstName(newFirstName);
+        user.setUserLastName(newLastName);
         userRepo.save(user);
-        return true;
     }
 }

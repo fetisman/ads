@@ -31,8 +31,10 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
-    public String userList(Model model) {
+    public String userList(Model model,
+            @AuthenticationPrincipal User user) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("currentUser", user);
 
         return "userList";
     }
@@ -48,11 +50,10 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String userSave(
-            @RequestParam String username,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
     ) {
-        userService.saveUser(user, username, form);
+        userService.saveUser(user, form);
 
         return "redirect:/user";
     }
@@ -68,85 +69,106 @@ public class UserController {
     @PostMapping("pswd-profile")
     public String updatePswdProfile(
             @AuthenticationPrincipal User user,
-            @RequestParam String password0,
-            @RequestParam String password,
-            @RequestParam String password2,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword,
+            @RequestParam String confirmedPassword,
             Model model
     ){
-        if (StringUtils.isEmpty(password0)){
-            pswdProfileAddAttribute(model, null, password, password2,
-                    "password0Error", "Old password can not be empty");
+        if (StringUtils.isEmpty(oldPassword)){
+            pswdProfileAddAttribute(model, null, newPassword, confirmedPassword,
+                    "oldPasswordError", "Old password can not be empty");
             return "pswdProfile";
         }
-        if (StringUtils.isEmpty(password)){
-            pswdProfileAddAttribute(model, password0, null, password2,
-                    "passwordError", "Password can not be empty");
+        if (StringUtils.isEmpty(newPassword)){
+            pswdProfileAddAttribute(model, oldPassword, null, confirmedPassword,
+                    "newPasswordError", "Password can not be empty");
             return "pswdProfile";
         }
-        if (StringUtils.isEmpty(password2)){
-            pswdProfileAddAttribute(model, password0, password, null,
-                    "password2Error", "Password confirmation can not be empty");
-            return "pswdProfile";
-        }
-
-        if (!password.equals(password2)){
-            pswdProfileAddAttribute(model, password0, password, password2,
-                    "password2Error", "Passwords are different");
+        if (StringUtils.isEmpty(confirmedPassword)){
+            pswdProfileAddAttribute(model, oldPassword, newPassword, null,
+                    "confirmedPasswordError", "Password confirmation can not be empty");
             return "pswdProfile";
         }
 
-        if (password.equals(password0)){
-            pswdProfileAddAttribute(model, password0, password, password2,
-                    "passwordError", "New password already exists");
+        if (!newPassword.equals(confirmedPassword)){
+            pswdProfileAddAttribute(model, oldPassword, newPassword, confirmedPassword,
+                    "confirmedPasswordError", "Passwords are different");
             return "pswdProfile";
         }
 
-        if (!userService.updatePswd(user,password, password0)){
-            pswdProfileAddAttribute(model, password0, password, password2,
-                    "password0Error", "Invalid old password");
+        if (newPassword.equals(oldPassword)){
+            pswdProfileAddAttribute(model, oldPassword, newPassword, confirmedPassword,
+                    "newPasswordError", "New password already exists");
+            return "pswdProfile";
+        }
+
+        if (!userService.updatePswd(user,newPassword, oldPassword)){
+            pswdProfileAddAttribute(model, oldPassword, newPassword, confirmedPassword,
+                    "oldPasswordError", "Invalid old password");
             return "pswdProfile";
         }
 
         return "redirect:/user/pswd-profile";
     }
 
-    private void pswdProfileAddAttribute(Model model, String password0,
-            String password, String password2,  String errorName,  String errorDescr){
-        model.addAttribute("password0", password0);
-        model.addAttribute("password", password);
-        model.addAttribute("password2", password2);
+    private void pswdProfileAddAttribute(Model model, String oldPassword,
+            String newPassword, String confirmedPassword,  String errorName,  String errorDescr){
+        model.addAttribute("oldPassword", oldPassword);
+        model.addAttribute("newPassword", newPassword);
+        model.addAttribute("confirmedPassword", confirmedPassword);
         model.addAttribute(errorName, errorDescr);
     }
 
     //-------------User-------------
     @GetMapping("user-profile")
     public String getUserProfile(Model model, @AuthenticationPrincipal User user){
-        userProfileAddAttribute(model, user, null);
+        userProfileAddAttribute(model, user, "", null);
         return "userProfile";
     }
 
     @PostMapping("user-profile")
     public String updateUserProfile(
             @AuthenticationPrincipal User user,
-            @RequestParam String userLastName,
+            @RequestParam String newFirstName,
+            @RequestParam String newLastName,
             Model model
     ){
-        if (StringUtils.isEmpty(userLastName)){
-            userProfileAddAttribute(model, user, "Last name can not be empty");
+        if (StringUtils.isEmpty(newFirstName)){
+            userProfileAddAttribute(model, user, "firstNameError", "First name can not be empty");
+            return "userProfile";
+        }
+        if (StringUtils.isEmpty(newLastName)){
+            userProfileAddAttribute(model, user, "lastNameError", "Last name can not be empty");
             return "userProfile";
         }
 
-        if (!userService.updateUserProfile(user,userLastName)){
-            userProfileAddAttribute(model, user, "New last name already exists");
+        boolean isUserFirstNameChanged = user.getUserFirstName() == null || !user.getUserFirstName().equals(newFirstName);
+
+        boolean isUserLastNameChanged = user.getUserLastName() == null || !user.getUserLastName().equals(newLastName);
+
+        if (isUserFirstNameChanged || isUserLastNameChanged) {
+            userService.updateUserProfile(user, newFirstName, newLastName);
+            return "redirect:/user/user-profile";
+        }
+
+        if (!isUserFirstNameChanged && !isUserLastNameChanged){
+            model.addAttribute("user", user);
+            model.addAttribute("firstNameError", "This first name already exists");
+            model.addAttribute("lastNameError", "This last name already exists");
+            return "userProfile";
+        }
+
+        if (!isUserFirstNameChanged){
+            userProfileAddAttribute(model, user, "firstNameError", "This first name already exists");
             return "userProfile";
         }
 
         return "redirect:/user/user-profile";
     }
 
-    private void userProfileAddAttribute(Model model, User user, String lastNameError){
+    private void userProfileAddAttribute(Model model, User user, String errorName, String errorDescr){
         model.addAttribute("user", user);
-        model.addAttribute("lastNameError", lastNameError);
+        model.addAttribute(errorName, errorDescr);
     }
 
 }

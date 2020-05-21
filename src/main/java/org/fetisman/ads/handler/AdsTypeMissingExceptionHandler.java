@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class AdsTypeMissingExceptionHandler {
 
-    @Value("${spring.mail.username}")
-    private String mailUsername;
+    @Value("${admin.email}")
+    private String adminEmail;
 
     private Logger LOGGER = Logger.getLogger("database.ad_types");
 
 
     @ExceptionHandler(NullPointerException.class)
     public String handleAdsTypeMissingException(NullPointerException ex, Model model){
-        model.addAttribute("adsTypeMissingWarning", "Ad types not found. Please contact the administrator with this problem by e-mail " + mailUsername);
+        model.addAttribute("adsTypeMissingWarning", "Ad types or catalogs not found. Please contact the administrator with this problem by e-mail " + adminEmail);
 
-        LOGGER.log(Level.SEVERE, "Exception. Check for the existence of ad types in the database", ex);
+        LOGGER.log(Level.SEVERE, "Exception. Check for the existence of ad types/catalogs in the database", ex);
 
         return "handlerpages/adsTypeMissingPage";
     }

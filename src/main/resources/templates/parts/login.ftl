@@ -24,16 +24,16 @@
             </div>
         </div>
 
-        <#if isRegisterForm>
+        <#--<#if isRegisterForm>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"> User Last Name : </label>
                 <div class="col-sm-10">
                     <input id="lastname"
                            onkeyup="checkParams()"
-                           type="text" name="userLastName"
-                           class="form-control ${(lastNameError??)?string('is-invalid', '')}"
                            placeholder="User last name should be min - 2 & max - 15 chars"
-                            <#--                            value="<#if user??>${user.userLastName}</#if>"-->
+                           type="text" name="userLastName"
+                           value="<#if user??>${user.userLastName}</#if>"
+                           class="form-control ${(lastNameError??)?string('is-invalid', '')}"
                            minlength="2" maxlength="15" autocomplete="off"/>
                     <#if lastNameError??>
                         <div class="invalid-feedback">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        </#if>
+        </#if>-->
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password : </label>

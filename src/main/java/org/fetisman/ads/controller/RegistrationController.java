@@ -74,12 +74,11 @@ public class RegistrationController {
 
         if (!userService.addUser(new User(userRegistrationDto))) {
             model.addAttribute("usernameError", "User exists");
-            model.addAttribute("lastNameError", "User exists");
             return "registration";
         }
 
         model.addAttribute("mailSendWarning", "We just sent you e-letter on " + email + " address. Please , visit your mail-box and confirm your mail address");
-        return "mailWarnPage";
+        return "handlerpages/mailWarnPage";
     }
 
     @GetMapping("/activate/{code}")
