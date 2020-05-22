@@ -9,9 +9,9 @@
             <label class="col-sm-2 col-form-label"> Old password : </label>
             <div class="col-sm-10">
                 <input type="password" name="oldPassword"
-                        class="form-control ${(oldPasswordError??)?string('is-invalid', '')}"
-                        placeholder="Input your old password"
-                        value="<#if oldPassword??>${oldPassword}</#if>"/>
+                       class="form-control ${(oldPasswordError??)?string('is-invalid', '')}"
+                       placeholder="Input your old password"
+                       value="<#if oldPassword??>${oldPassword}</#if>"/>
                 <#if oldPasswordError??>
                     <div class="invalid-feedback">
                         ${oldPasswordError}
@@ -24,10 +24,10 @@
             <label class="col-sm-2 col-form-label"> New password : </label>
             <div class="col-sm-10">
                 <input id="pswd" onkeyup="checkParams()"
-                        type="password" name="newPassword"
-                        class="form-control ${(newPasswordError??)?string('is-invalid', '')}"
-                        placeholder="The new password should be min - 8 & max - 15 chars"
-                        value="<#if newPassword??>${newPassword}</#if>"/>
+                       type="password" name="newPassword"
+                       class="form-control ${(newPasswordError??)?string('is-invalid', '')}"
+                       placeholder="The new password should be min - 8 & max - 15 chars"
+                       value="<#if newPassword??>${newPassword}</#if>"/>
                 <#if newPasswordError??>
                     <div class="invalid-feedback">
                         ${newPasswordError}
@@ -43,10 +43,10 @@
             <label class="col-sm-2 col-form-label"> Password confirm : </label>
             <div class="col-sm-10">
                 <input id="pswd2" onkeyup="checkParams()"
-                        type="password" name="confirmedPassword"
-                        class="form-control ${(confirmedPasswordError??)?string('is-invalid', '')}"
-                        placeholder="Retype new password" autocomplete="off"
-                        value="<#if confirmedPassword??>${confirmedPassword}</#if>"/>
+                       type="password" name="confirmedPassword"
+                       class="form-control ${(confirmedPasswordError??)?string('is-invalid', '')}"
+                       placeholder="Retype new password" autocomplete="off"
+                       value="<#if confirmedPassword??>${confirmedPassword}</#if>"/>
                 <#if confirmedPasswordError??>
                     <div class="invalid-feedback">
                         ${confirmedPasswordError}
@@ -60,26 +60,14 @@
 
         <button id="submit" class="btn btn-primary" type="submit" disabled>Save</button>
 
-        <div>
-            <input id="email"
-                   onkeyup="checkParams()"
-                   class="form-control"
-                   type="hidden" name="email" value="${(user.email)!''}"/>
-        </div>
+        <input id="email" type="hidden" value="${(user.email)!''}"/>
 
-        <div>
-            <input id="uname"
-                   onkeyup="checkParams()"
-                   type="hidden" value="${(user.username)!''}"/>
-            <div id="isUsernameError"></div>
-        </div>
+        <input id="uname" type="hidden" value="${(user.username)!''}"/>
+        <div id="isUsernameError"></div>
 
-        <div>
-            <input id="lastname"
-                   onkeyup="checkParams()"
-                   type="hidden" value="${(user.userLastName)!''}"/>
-            <div id="isUserLastNameError"></div>
-        </div>
+        <input id="lastname" type="hidden" value="${(user.userLastName)!''}"/>
+        <div id="isUserLastNameError"></div>
+
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
 

@@ -2,12 +2,12 @@
     <form action="${path}" method="post">
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label"> User Name : </label>
+            <label class="col-sm-2 col-form-label"> Login : </label>
             <div class="col-sm-10">
                 <input <#if isRegisterForm>
                     id="uname" onkeyup="checkParams()"
-                    placeholder="User name should be min - 5 & max - 20 chars"
-                    <#else>placeholder="Input user name"</#if>
+                    placeholder="Login should be min - 5 & max - 20 chars"
+                    <#else>placeholder="Input login"</#if>
                         type="text" name="username"
                         value="<#if user??>${user.username}</#if>"
                         class="form-control ${(usernameError??)?string('is-invalid', '')}"
@@ -23,30 +23,6 @@
                 </div>
             </div>
         </div>
-
-        <#--<#if isRegisterForm>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"> User Last Name : </label>
-                <div class="col-sm-10">
-                    <input id="lastname"
-                           onkeyup="checkParams()"
-                           placeholder="User last name should be min - 2 & max - 15 chars"
-                           type="text" name="userLastName"
-                           value="<#if user??>${user.userLastName}</#if>"
-                           class="form-control ${(lastNameError??)?string('is-invalid', '')}"
-                           minlength="2" maxlength="15" autocomplete="off"/>
-                    <#if lastNameError??>
-                        <div class="invalid-feedback">
-                            ${lastNameError}
-                        </div>
-                    </#if>
-
-                    <div id="isUserLastNameError" class="invalid-feedback">
-                        User last name should be min - 2 & max - 15 chars
-                    </div>
-                </div>
-            </div>
-        </#if>-->
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"> Password : </label>
@@ -123,12 +99,12 @@
 
         <#else>
             <div class="form-group row">
-                <div class="col-sm-2">
-                    <a href="/registration">Add new user</a>
+                <div class="col-xs-2">
+                    <a href="/registration" class="btn btn-primary btn-block">Add new user</a>
                 </div>
 
-                <div class="col-sm-10">
-                    <button class="btn btn-primary " type="submit">
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit">
                         Sign In
                     </button>
                 </div>

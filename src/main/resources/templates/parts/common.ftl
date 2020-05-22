@@ -24,16 +24,47 @@
     <!-- JavaScript -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script>
+        function checkUserProfileParams() {
+            const currentFirstName = $('#currentFirstName').val();
+            const currentLastName = $('#currentLastName').val();
+            const newFirstName = $('#newFirstName').val();
+            const newLastName = $('#newLastName').val();
+
+            var newFirstNameError = document.getElementById("isNewFirstNameError");
+            var newLastNameError = document.getElementById("isNewLastNameError");
+
+            var isFirstNamesChanged = true;
+            var isLastNamesChanged = true;
+
+            if (currentFirstName === newFirstName){
+                newFirstNameError.style.display = 'inline';
+                isFirstNamesChanged = false;
+            }else {
+                newFirstNameError.style.display = 'none';
+            }
+
+            if (currentLastName === newLastName){
+                newLastNameError.style.display = 'inline';
+                isLastNamesChanged = false;
+            }else {
+                newLastNameError.style.display = 'none';
+            }
+
+            if (isFirstNamesChanged || isLastNamesChanged){
+                $('#submit').removeAttr('disabled');
+            } else {
+                $('#submit').attr('disabled', 'disabled');
+            }
+        }
+    </script>
+    <script>
         function checkParams() {
             const uname = $('#uname').val();
-            // const lastname = $('#lastname').val();
             const pswd = $('#pswd').val();
             const pswd2 = $('#pswd2').val();
             const email = $('#email').val();
             var elemUNError = document.getElementById("isUsernameError");
             var isUsernameValid = false;
-            var elemLastNameError = document.getElementById("isUserLastNameError");
-            // var isLastnameValid = false;
             var elemPswdError = document.getElementById("isPasswordError");
             var isPswdValid = false;
             var elemPswdEquals = document.getElementById("isPswdEquals");
@@ -47,13 +78,6 @@
                 elemUNError.style.display = 'inline';
             }
 
-            // if (lastname.length >1 && lastname.length <16){
-            //     elemLastNameError.style.display = 'none';
-            //     isLastnameValid = true;
-            // }else {
-            //     elemLastNameError.style.display = 'inline';
-            // }
-
             if (pswd.length >=8 && pswd.length <=15){
                 elemPswdError.style.display = 'none';
                 isPswdValid = true;
@@ -61,7 +85,7 @@
                 elemPswdError.style.display = 'inline';
             }
 
-            if (pswd2 == pswd){
+            if (pswd2 === pswd){
                 elemPswdEquals.style.display = 'none';
                 isPswdsEquals = true
             }else {
