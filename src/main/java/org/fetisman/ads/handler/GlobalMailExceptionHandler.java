@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalMailExceptionHandler {
 
-    @Value("${spring.mail.username}")
-    private String mailUsername;
+    @Value("${admin.email}")
+    private String adminEmail;
 
     private Logger LOGGER = Logger.getLogger("application.properties");
 
 
     @ExceptionHandler(MailException.class)
     public String handleMailException(MailException ex, Model model){
-        model.addAttribute("mailSendWarning", "Server Error related to  registration email sending. Please contact the administrator with this problem by e-mail " + mailUsername);
+        model.addAttribute("mailSendWarning", "Server Error related to  registration email sending. Please contact the administrator with this problem by e-mail " + adminEmail);
         if (ex.getCause() instanceof MailConnectException) {
                 LOGGER.log(Level.SEVERE, "MailConnectException. Check out spring.mail.host data in .properties", ex);
             }

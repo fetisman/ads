@@ -11,11 +11,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -149,18 +147,6 @@ public class UserController {
         if (isUserFirstNameChanged || isUserLastNameChanged) {
             userService.updateUserProfile(user, newFirstName, newLastName);
             return "redirect:/user/user-profile";
-        }
-
-        if (!isUserFirstNameChanged && !isUserLastNameChanged){
-            model.addAttribute("user", user);
-            model.addAttribute("firstNameError", "This first name already exists");
-            model.addAttribute("lastNameError", "This last name already exists");
-            return "userProfile";
-        }
-
-        if (!isUserFirstNameChanged){
-            userProfileAddAttribute(model, user, "firstNameError", "This first name already exists");
-            return "userProfile";
         }
 
         return "redirect:/user/user-profile";

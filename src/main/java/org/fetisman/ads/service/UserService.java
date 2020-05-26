@@ -103,11 +103,11 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public boolean updatePswd(User user, String password, String password0) {
-        if (!passwordEncoder.matches(password0, user.getPassword())){
+    public boolean updatePswd(User user, String newPassword, String oldPassword) {
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())){
             return false;
         }
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(user);
         return true;
     }
