@@ -14,9 +14,9 @@
             </li>
 
             <#if user??>
-            <li class="nav-item active">
-                <a class="nav-link" href="/main/${catalog!0}">Ads</a>
-            </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/main/${catalog!0}">Ads</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/user-advs/${currentUserId}">My ads</a>
                 </li>
@@ -36,8 +36,8 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="collapseProfile">
-                    <a class="dropdown-item" href="/user/user-profile">User profile</a>
-                    <a class="dropdown-item" href="/user/pswd-profile">Change password</a>
+                        <a class="dropdown-item" href="/user/user-profile">User profile</a>
+                        <a class="dropdown-item" href="/user/pswd-profile">Change password</a>
                     </div>
                 </li>
             </#if>

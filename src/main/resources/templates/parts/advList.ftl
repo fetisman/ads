@@ -17,7 +17,7 @@
     </tr>
     </thead>
 
-    <tbody>
+    <tbody  id="adv-list">
     <#list page.content as adv>
         <tr>
             <th>
@@ -40,9 +40,11 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Desc
                         </button>
+
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <span class="dropdown-item-text">${adv.longDesc}</span>
                         </div>
+                    </div>
                         <#else>
                             ${adv.longDesc}
                         </#if>
@@ -58,9 +60,11 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Phone
                         </button>
+
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <span class="dropdown-item-text">${adv.phone}</span>
                         </div>
+                    </div>
                         <#else>
                             ${adv.phone}
                         </#if>
@@ -76,7 +80,7 @@
             <td>
                 <#if adv.filename??>
                     <a class="col align-self-center">
-                        <img src="/img/${adv.filename}" width="80" height="80">
+                        <img src="/img/${adv.filename}" width="80" height="80"/>
                     </a>
                 </#if>
             </td>
