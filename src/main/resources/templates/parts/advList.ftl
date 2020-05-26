@@ -19,7 +19,7 @@
 
     <tbody  id="adv-list">
     <#list page.content as adv>
-        <tr>
+        <tr data-id="${adv.id}">
             <th>
                 <div class="col align-self-center">
                     ${adv.id}
@@ -73,7 +73,7 @@
 
             <td>
                 <a class="col align-self-center">
-                    ${adv.price}
+                    ${adv.price!''}
                 </a>
             </td>
 
