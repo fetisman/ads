@@ -62,7 +62,7 @@ public class RegistrationController {
         }
 
         if (userRegistrationDto.getPassword()!= null && !userRegistrationDto.getPassword().equals(passwordConfirm)){
-            model.addAttribute("passwordError", "Passwords are different !");
+            model.addAttribute("passwordError", "Passwords are different");
             hasPasswordErrors = true;
         }
 
@@ -78,7 +78,7 @@ public class RegistrationController {
         }
 
         model.addAttribute("mailSendWarning", "We just sent you e-letter on " + email + " address. Please , visit your mail-box and confirm your mail address");
-        return "mailWarnPage";
+        return "handlerpages/mailWarnPage";
     }
 
     @GetMapping("/activate/{code}")

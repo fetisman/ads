@@ -33,6 +33,10 @@ public class User implements UserDetails {
 
     private String username;
 
+    private String userFirstName;
+
+    private String userLastName;
+
     private String password;
 
     private String email;
@@ -116,6 +120,22 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
     }
 
     public boolean isActive() {

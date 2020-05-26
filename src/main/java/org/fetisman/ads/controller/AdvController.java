@@ -89,6 +89,9 @@ public class AdvController {
             model.addAttribute("url", "/main/" + catalog.getId());
             model.addAttribute("filter", filter);
             model.addAttribute("catalog", catalog);
+        }else{
+            model.addAttribute("mailSendWarning", "We just sent you e-letter on your new mail address. Please , visit your mail-box and confirm your mail address");
+            return "mailWarnPage";
         }
 
         return "main";
@@ -96,12 +99,12 @@ public class AdvController {
 
     @PostMapping("/main/{catalog}")
     public String add(@PathVariable Catalog catalog,
-                      @Valid Adv adv,
-                      BindingResult bindingResult,
-                      Model model,
-                      @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
-                      @RequestParam("file") MultipartFile file,
-                      @AuthenticationPrincipal User user) throws IOException {
+            @Valid Adv adv,
+            BindingResult bindingResult,
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal User user) throws IOException {
 
         AdvType advType = advTypeService.loadAdvTypeByType(adv.getType());
 
