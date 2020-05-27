@@ -32,7 +32,6 @@ public class UserController {
     public String userList(Model model,
             @AuthenticationPrincipal User user) {
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("currentUser", user);
 
         return "userList";
     }

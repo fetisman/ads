@@ -3,7 +3,7 @@
 <#import "dropdownAdText.ftl" as d>
 
 <#if page.getTotalPages() gt 0>
-    <@p.pager url'/main/0' page/>
+    <@p.pager url!'/main/0' page/>
 
 <#--    <div class="table-responsive">-->
     <table class="table table-striped table-bordered mt-3">

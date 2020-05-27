@@ -14,7 +14,7 @@
         </thead>
         <tbody>
         <#list users as user>
-            <#if user.id != currentUser.id>
+            <#if user.id != currentUserId>
             <tr>
                 <td>${user.username}</td>
                 <td><#list user.roles as role>${role}<#sep>, </#list></td>
