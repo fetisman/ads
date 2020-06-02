@@ -43,6 +43,10 @@ public class UserServiceTest {
 
         Assert.assertTrue(CoreMatchers.is(user.getRoles()).matches(Collections.singleton(Role.USER)));
 
+        Assert.assertNull(user.getPassword());
+
+        Mockito.verify(passwordEncoder, Mockito.times(1)).encode(user.getPassword());
+
         Mockito.verify(userRepo, Mockito.times(1)).save(user);
 
         Mockito.verify(mailSender, Mockito.times(1))
