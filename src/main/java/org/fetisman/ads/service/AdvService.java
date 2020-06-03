@@ -31,4 +31,8 @@ public class AdvService {
     public Page<Adv> advListForUser(Pageable pageable, User author){
         return advRepo.findByUser(pageable, author);
     }
+
+    public void addAdv(Adv adv){
+        advRepo.save(adv);
+    }
 }

@@ -120,7 +120,7 @@ public class AdvController {
             saveFile(adv, file);
 
             model.addAttribute("adv", null);
-            advRepo.save(adv);
+            advService.addAdv(adv);
         }
 
         Page<Adv> page = advRepo.findAll(pageable);
@@ -169,7 +169,8 @@ public class AdvController {
 
             saveFile(adv, file);
 
-            advRepo.save(adv);
+            advService.addAdv(adv);
+
         }
         return "redirect:/user-advs/" + user;
     }
